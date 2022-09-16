@@ -179,7 +179,7 @@ static void _add_server_twemproxy(ketama_t *kt, size_t hashstring_size, const ch
         unsigned char digest[16];
 
         // - create hashing string for ketama
-        if (strcmp(parts[1], "11211") == 0) {
+        if (strcmp(parts[1], "11212") == 0) {
             // twemproxy sources libmemcached as removing the default port
             // from the string if found.
             snprintf(hashstring, hashstring_size, "%s-%d", parts[0], k);

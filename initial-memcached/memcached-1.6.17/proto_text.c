@@ -2133,7 +2133,7 @@ static void process_arithmetic_command_mul(conn *c, token_t *tokens, const size_
         return;
     }
 
-    switch(add_delta(c, key, nkey, mul, delta, temp, NULL)) {
+    switch(mul_delta(c, key, nkey, mul, delta, temp, NULL)) {
     case OK:
         out_string(c, temp);
         break;
@@ -2885,8 +2885,8 @@ void process_command_ascii(conn *c, char *command) {
         } else {
             out_string(c, "ERROR");
         }
-    } else if (first == 'm') {
-        if (strcmp(tokens[COMMAND_TOKEN].value, "mul") == 0) {
+    } else if (first == 'm' && tokens[COMMAND_TOKEN].length == 4) {
+        if (strcmp(tokens[COMMAND_TOKEN].value, "mult") == 0) {
 
             WANT_TOKENS_OR(ntokens, 4, 5);
             process_arithmetic_command_mul(c, tokens, ntokens, 1);

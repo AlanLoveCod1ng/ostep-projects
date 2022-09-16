@@ -1,0 +1,4 @@
+I modified 4 files, proto_txt.c, memcached.c memcached.h and thread.c.
+In the proto_txt.c, I added two if-else statement for mult and div promote detect in the function process_command_ascii, and then add another function process_arithmatic_mul to process mul and div operation.
+In the thread.c I add function mul_delta.
+In the memcached.c, I add function do_delta_mul and declare the function in memcached.h.

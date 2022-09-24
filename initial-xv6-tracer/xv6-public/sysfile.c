@@ -16,6 +16,10 @@
 #include "file.h"
 #include "fcntl.h"
 
+int trace_enabled  = 0;
+char trace_pathname[256] = "";
+int trace_counter = 0;
+
 // Fetch the nth word-sized system call argument as a file descriptor
 // and return both the descriptor and the corresponding struct file.
 static int
@@ -329,6 +333,11 @@ sys_open(void)
   f->off = 0;
   f->readable = !(omode & O_WRONLY);
   f->writable = (omode & O_WRONLY) || (omode & O_RDWR);
+
+  // if(strcmp(trace_pathname,path)){
+  //   trace_counter++;
+  // }
+
   return fd;
 }
 
@@ -441,4 +450,25 @@ sys_pipe(void)
   fd[0] = fd0;
   fd[1] = fd1;
   return 0;
+}
+
+int 
+sys_trace(const char *pathname)
+{
+  // if(!pathname){
+  //   return -1;
+  // }
+  // strcpy(trace_pathname,pathname);
+  // trace_enabled  = 1;
+  // trace_counter = 0;
+  return 0;
+}
+
+int 
+sys_getcount(void)
+{
+  if(!trace_enabled){
+    return 0;
+  }
+  return trace_counter;
 }

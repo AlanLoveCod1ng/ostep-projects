@@ -10,6 +10,7 @@
 000004c0 printf
 00000330 memmove
 000003ab mknod
+00000403 trace
 00000230 gets
 000003e3 getpid
 00000090 cat

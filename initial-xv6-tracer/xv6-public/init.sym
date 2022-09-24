@@ -11,6 +11,7 @@
 00000b24 argv
 00000310 memmove
 0000038b mknod
+000003e3 trace
 00000210 gets
 000003c3 getpid
 000006d0 malloc

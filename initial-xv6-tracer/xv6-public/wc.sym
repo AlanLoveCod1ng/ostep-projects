@@ -10,6 +10,7 @@
 00000530 printf
 000003a0 memmove
 0000041b mknod
+00000473 trace
 000002a0 gets
 00000453 getpid
 00000760 malloc

@@ -15,6 +15,7 @@
 000038a0 memmove
 00000300 openiputtest
 0000391b mknod
+00003973 trace
 000037a0 gets
 00003953 getpid
 00000a20 pipe1

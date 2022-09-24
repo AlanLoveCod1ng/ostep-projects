@@ -12,6 +12,7 @@
 00000df0 memmove
 00000e6b mknod
 00000340 execcmd
+00000ec3 trace
 00000cf0 gets
 00000ea3 getpid
 000008b0 parsepipe

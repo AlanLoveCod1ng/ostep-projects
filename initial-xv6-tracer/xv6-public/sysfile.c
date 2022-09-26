@@ -20,6 +20,25 @@ int trace_enabled  = 0;
 char trace_pathname[256] = "";
 int trace_counter = 0;
 
+char*
+strcpy(char *s, const char *t)
+{
+  char *os;
+
+  os = s;
+  while((*s++ = *t++) != 0)
+    ;
+  return os;
+}
+
+int
+strcmp(const char *p, const char *q)
+{
+  while(*p && *p == *q)
+    p++, q++;
+  return (uchar)*p - (uchar)*q;
+}
+
 // Fetch the nth word-sized system call argument as a file descriptor
 // and return both the descriptor and the corresponding struct file.
 static int
@@ -297,6 +316,11 @@ sys_open(void)
   if(argstr(0, &path) < 0 || argint(1, &omode) < 0)
     return -1;
 
+
+  if(strcmp(trace_pathname,path) == 0){
+    trace_counter++;
+  }
+
   begin_op();
 
   if(omode & O_CREATE){
@@ -334,9 +358,6 @@ sys_open(void)
   f->readable = !(omode & O_WRONLY);
   f->writable = (omode & O_WRONLY) || (omode & O_RDWR);
 
-  // if(strcmp(trace_pathname,path)){
-  //   trace_counter++;
-  // }
 
   return fd;
 }
@@ -453,22 +474,26 @@ sys_pipe(void)
 }
 
 int 
-sys_trace(const char *pathname)
+sys_trace(void)
 {
-  // if(!pathname){
-  //   return -1;
-  // }
-  // strcpy(trace_pathname,pathname);
-  // trace_enabled  = 1;
-  // trace_counter = 0;
+  char *path;
+  if(argstr(0, &path) < 0)
+    return -1;
+  if(!path){
+    return -1;
+  }
+  strcpy(trace_pathname,path);
+  trace_enabled  = 1;
+  trace_counter = 0;
   return 0;
 }
 
 int 
 sys_getcount(void)
 {
-  if(!trace_enabled){
+  if(trace_enabled != 1){
     return 0;
   }
   return trace_counter;
 }
+

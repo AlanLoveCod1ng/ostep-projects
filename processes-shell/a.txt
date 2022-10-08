@@ -1,0 +1,8 @@
+a.txt
+commands
+commands.c
+ls_test.txt
+README.md
+tests
+test-wish.sh
+wish.c

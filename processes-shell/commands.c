@@ -29,6 +29,29 @@ int path(int argc, char *argv[])
     return 0;
 }
 
+int cmd_exit(int argc, char *argv[]){
+    if(argc != 1){
+        // TODO: error
+        return 1;
+    }
+    exit(0);
+    return 0;
+}
+
+int cmd_cd(int argc, char *argv[]){
+    if(argc != 2){
+        // TODO: error
+        return 1;
+    }
+    int res = chdir(argv[1]);
+    if (res != 0)
+    {
+        // TODO: error
+        return 1;
+    }
+    return 0;
+}
+
 int execute(int argc, char *argv[], char *filename)
 {
     int rc = fork();
@@ -66,6 +89,11 @@ int execute(int argc, char *argv[], char *filename)
     }
     return 0;
 }
+
+int command_process(){
+    
+}
+
 int main(int argc, char const *argv[])
 {
     paths = malloc(sizeof(char *));
@@ -109,11 +137,11 @@ int main(int argc, char const *argv[])
         }
         else if (strcmp(args[0], "cd") == 0)
         {
-            /* code */
+            cmd_cd(num_args,args);
         }
         else if (strcmp(args[0], "exit") == 0)
         {
-            /* code */
+            cmd_exit(num_args,args);
         }
         else
         {

@@ -93,9 +93,9 @@ int execute(int argc, char *argv[], char *filename)
             strcat(current_path, argv[0]);
             if (access(current_path, X_OK) == 0)
             {
-                char*temp = strdup(current_path);
+                char *temp = strdup(current_path);
                 free(current_path);
-                if (filename != NULL)
+                if (strcmp(filename,"") != 0)
                 {
                     (void)close(STDOUT_FILENO);
                     open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -118,21 +118,52 @@ int execute(int argc, char *argv[], char *filename)
 
 int command_process(char *buffer)
 {
-    const char s[2] = " ";
+
+    int index = 0;
+    int redir_count = 0;
+    while (buffer[index])
+    {
+        if (buffer[index] == '>')
+        {
+            redir_count += 1;
+            if (redir_count == 2)
+            {
+                err(0);
+                return 0;
+            }
+        }
+        index++;
+    }
+    const char redirect[2] = ">";
+    char redirect_cmd[256];
+    char redirect_file[256];
+    char *token;
+    token = strtok(buffer, redirect);
+    strcpy(redirect_cmd, token);
+    token = strtok(NULL, redirect);
+    const char space[2] = " ";
+    char file[256];
+    if (token != NULL)
+    {
+        strcpy(redirect_file,token);
+        token = strtok(redirect_file,space);
+        strcpy(file,token);
+        token = strtok(NULL,space);
+        if(token!=NULL){
+            err(0);
+            return 0;
+        }
+    }
 
     char arg_temp[30][30];
-
-    char *token;
-
     /* get the first token */
-    token = strtok(buffer, s);
-
+    token = strtok(redirect_cmd, space);
     /* walk through other tokens */
     int num_args = 0;
     while (token != NULL)
     {
         strcpy(arg_temp[num_args], token);
-        token = strtok(NULL, s);
+        token = strtok(NULL, space);
         num_args++;
     }
     char *args[num_args + 1];
@@ -140,6 +171,7 @@ int command_process(char *buffer)
     {
         args[i] = arg_temp[i];
     }
+
     if (strcmp(args[0], "path") == 0)
     {
         path(num_args, args);
@@ -154,45 +186,7 @@ int command_process(char *buffer)
     }
     else
     {
-        // count number of redirection
-        int redirection_index = -1;
-        char *filename = NULL;
-        int redirecion_wrong = 0;
-        for (int i = 0; i < num_args; i++)
-        {
-            if (strcmp(args[i], ">") != 0)
-            {
-                continue;
-            }
-            
-            if (i + 1 == num_args-1)
-            {
-                if (redirection_index != -1)
-                {
-                    redirecion_wrong = 1;
-                    break;
-                }
-                redirection_index = i;
-                filename = args[i + 1];
-            }
-            else{
-                redirecion_wrong = 1;
-            }
-        }
-        int final_args_num = 0;
-        if (redirecion_wrong)
-        {
-            err(0);
-            return 0;
-        }
-        else if (redirection_index == -1)
-        {
-            final_args_num = num_args;
-        }
-        else
-        {
-            final_args_num = redirection_index;
-        }
+        int final_args_num = num_args;
         char *final_args[final_args_num + 1];
         for (int i = 0; i < final_args_num; i++)
         {
@@ -200,7 +194,7 @@ int command_process(char *buffer)
         }
         final_args[final_args_num] = NULL;
 
-        execute(final_args_num, final_args, filename);
+        execute(final_args_num, final_args, file);
     }
     return 0;
 }

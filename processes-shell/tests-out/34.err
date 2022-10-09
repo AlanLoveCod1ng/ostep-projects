@@ -1,0 +1,7 @@
+/usr/bin/ld: cannot find /u/c/s/cs537-1/tests/p2a/tests-o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find /u/c/s/cs537-1/tests/p2a/tests-o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find /u/c/s/cs537-1/tests/p2a/tests-o: No such file or directory
+collect2: error: ld returned 1 exit status
+An error has occurred

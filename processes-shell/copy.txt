@@ -118,21 +118,47 @@ int execute(int argc, char *argv[], char *filename)
 
 int command_process(char *buffer)
 {
-    const char s[2] = " ";
+
+    int index = 0;
+    int redir_count = 0;
+    while (1)
+    {
+        if (buffer[index] == '>')
+        {
+            redir_count+=1;
+            if(redir_count == 2){
+                err(0);
+                return 0;
+            }
+        
+        }
+    }
+    const char redirect[2] = ">";
+    char redirect_cmd[256];
+    char redirect_file[256];
+    char *token;
+    token = strtok(buffer, redirect);
+    strcpy(redirect_cmd,token);
+    strcpy(redirect_file,token);
+    token = strtok(NULL, redirect);
+    char *args[num_args + 1];
+    
+
+    const char space[2] = " ";
 
     char arg_temp[30][30];
 
     char *token;
 
     /* get the first token */
-    token = strtok(buffer, s);
+    token = strtok(buffer, space);
 
     /* walk through other tokens */
     int num_args = 0;
     while (token != NULL)
     {
         strcpy(arg_temp[num_args], token);
-        token = strtok(NULL, s);
+        token = strtok(NULL, space);
         num_args++;
     }
     char *args[num_args + 1];

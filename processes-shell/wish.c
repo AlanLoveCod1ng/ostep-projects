@@ -19,7 +19,7 @@ int err(int ifexit)
             free(paths[i]);
         }
         free(paths);
-        exit(0);
+        exit(1);
     }
     return 0;
 }
@@ -143,6 +143,7 @@ int command_process(char *buffer)
     token = strtok(NULL, redirect);
     const char space[2] = " ";
     char file[256];
+    file[0] = '\000';
     if (token != NULL)
     {
         strcpy(redirect_file,token);
@@ -154,6 +155,13 @@ int command_process(char *buffer)
             return 0;
         }
     }
+
+    if (redir_count == 1 &&file[0] == '\000')
+    {
+        err(0);
+        return 0;
+    }
+    
 
     char arg_temp[30][30];
     /* get the first token */

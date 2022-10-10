@@ -96,12 +96,15 @@ int cmd_cd(int argc, char *argv[])
 
 int execute(int argc, char *argv[], char *filename)
 {
+    int stat;
     int rc = fork();
+     int ret = -1;
     // child process
     if (rc == 0)
     {
         for (int i = 0; i < path_num; i++)
         {
+            
             char current_path[256];
             strcpy(current_path, paths[i]);
             strcat(current_path, "/");
@@ -121,13 +124,18 @@ int execute(int argc, char *argv[], char *filename)
     }
     else if (rc > 0)
     {
-        waitpid((pid_t)rc, NULL, WUNTRACED);
+        waitpid((pid_t)rc, &stat, WUNTRACED);
+        if (WIFEXITED(stat))
+        {
+            ret = WEXITSTATUS(stat);
+        }
+        
     }
     else
     {
         printf("error");
     }
-    return 0;
+    return ret;
 }
 
 int command_process(char *buffer)
@@ -135,9 +143,10 @@ int command_process(char *buffer)
     buffer = strtok(buffer, "\n");
     int index = 0;
     int redir_count = 0;
+    int ret = -1;
     if (!buffer)
     {
-        return 0;
+        return ret;
     }
     
     while (buffer[index])
@@ -148,7 +157,7 @@ int command_process(char *buffer)
             if (redir_count == 2)
             {
                 err(0);
-                return 0;
+                return ret;
             }
         }
         index++;
@@ -173,14 +182,14 @@ int command_process(char *buffer)
         token = strtok(NULL,space);
         if(token!=NULL){
             err(0);
-            return 0;
+            return ret;
         }
     }
 
     if (redir_count == 1 &&file[0] == '\000')
     {
         err(0);
-        return 0;
+        return ret;
     }
     
 
@@ -223,8 +232,140 @@ int command_process(char *buffer)
         }
         final_args[final_args_num] = NULL;
 
-        execute(final_args_num, final_args, file);
+        ret = execute(final_args_num, final_args, file);
     }
+    return ret;
+}
+
+int cmd_if(char *str)
+{
+    if (strcmp(str,"\n") == 0)
+    {
+        return 0;
+    }
+    if (strcmp(str,"") == 0)
+    {
+        err(0);
+        return 0;
+    }
+    
+    
+    char *token;
+    const char space[2] = " ";
+    char arg_temp[20][256];
+    /* get the first token */
+    token = strtok(str, space);
+    /* walk through other tokens */
+    int argc = 0;
+    while (token != NULL)
+    {
+        strcpy(arg_temp[argc], token);
+        token = strtok(NULL, space);
+        argc++;
+    }
+    char *argv[argc + 1];
+    for (int i = 0; i < argc; i++)
+    {
+        argv[i] = arg_temp[i];
+    }
+
+    if (strcmp(argv[0], "if")!=0 && strcmp(argv[argc-1],"fi")!=0)
+    {
+        char temp[256];
+        strcpy(temp, argv[0]);
+        for (int i = 1; i < argc; i++)
+        {
+            strcat(temp, " ");
+            strcat(temp, argv[i]);
+        }
+        
+        command_process(temp);
+    }  
+    else if (strcmp(argv[0], "if")==0 && strcmp(argv[argc-1],"fi")!=0)
+    {
+        err(0);
+        return 0;
+    }
+    else if (strcmp(argv[0], "if")!=0 && strcmp(argv[argc-1],"fi")==0)
+    {
+        err(0);
+        return 0;
+    }
+    else
+    {
+        int then_index = 1;
+        for(int i = 1; i < argc;i++)
+        {
+            if (strcmp(argv[i],"then") == 0)
+            {
+                then_index = i;
+                break;
+            }
+              
+        }
+        if (then_index == 2 ||then_index == argc-2 || then_index == 1)
+        {
+            printf("error");
+        }
+        int condition_index = 1;
+        int equal = 0;
+        for (int i = 1; i < then_index; i++)
+        {
+            if (strcmp(argv[i],"!=") == 0)
+            {
+                condition_index = i;
+                equal = 0;
+                break;
+            }
+            else if (strcmp(argv[i],"==") == 0)
+            {
+                condition_index = i;
+                equal = 1;
+                break;
+            }
+        }
+        if (condition_index != then_index-2)
+        {
+            printf("error");
+        }
+        char condition_action[256];
+        for (int i = 1; i < condition_index; i++)
+        {
+            if (i == 1)
+            {
+                strcpy(condition_action,argv[i]);
+            }
+            else{
+                strcat(condition_action,argv[i]);
+            }
+            strcat(condition_action," ");
+        }
+
+        char *constant = argv[condition_index+1];
+
+        char result_action[256];
+        for (int i = then_index+1; i < argc-1; i++)
+        {
+            if (i == then_index+1)
+            {
+                strcpy(result_action,argv[i]);
+            }
+            else
+            {
+                strcat(result_action,argv[i]);
+            }
+            
+            strcat(result_action," ");
+        }
+        
+        int condition_ret = command_process(condition_action);
+        if ((equal && condition_ret == atoi(constant))||(!equal && condition_ret!= atoi(constant)))
+        {
+            cmd_if(result_action);
+        }
+
+    }
+    
     return 0;
 }
 
@@ -247,7 +388,7 @@ int main(int argc, char const *argv[])
 
 
 
-            command_process(buffer);
+            cmd_if(buffer);
         }
     }
 
@@ -263,7 +404,7 @@ int main(int argc, char const *argv[])
 
         while (fgets(buffer, 256, fp) != NULL)
         {
-            command_process(buffer);
+            cmd_if(buffer);
         }
     }
     else
@@ -278,44 +419,3 @@ int main(int argc, char const *argv[])
     free(paths);
     return 0;
 }
-// #include<unistd.h>
-// #include<sys/wait.h>
-// #include<string.h>
-// #include<stdio.h>
-// #include<string.h>
-// #include<stdlib.h>
-// #include<fcntl.h>
-// #include<ctype.h>
-
-// int test(){
-//     char error_message[30] = "An error has occurred\n";
-//     int stat;
-//     int rc = fork();
-//     int ret = -1;
-//     if(rc < 0){
-//         write(STDERR_FILENO, error_message, strlen(error_message));
-//     }else if(rc == 0){
-//         //child process
-//         // char *const argv[2] = {"r23", NULL};
-//         execl("r23", NULL);
-//     }else{
-//         //parent process
-//         waitpid(rc, &stat, 0);
-//         if(WIFEXITED(stat)){
-//             ret = WEXITSTATUS(stat);
-//             //printf("Child process exit status = %d\n",WEXITSTATUS(stat));
-//         }else{
-//             printf("Unable to locate exit status\n");
-//         }
-
-//     }
-//     return ret;
-// }
-
-// int main(int argc, char const *argv[])
-// {
-//     int ret = test();
-    
-//     printf("%i", ret);
-
-//     return 0;

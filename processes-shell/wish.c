@@ -7,6 +7,7 @@
 
 char **paths;
 int path_num = 0;
+FILE *fp;
 int err(int ifexit)
 {
     char error_message[30] = "An error has occurred\n";
@@ -19,6 +20,11 @@ int err(int ifexit)
             free(paths[i]);
         }
         free(paths);
+        if (fp)
+        {
+            fclose(fp);
+        }
+        
         exit(1);
     }
     return 0;
@@ -57,6 +63,11 @@ int cmd_exit(int argc, char *argv[])
     {
         free(paths[i]);
     }
+    if (fp)
+    {
+        fclose(fp);
+    }
+    
     free(paths);
     exit(0);
     return 0;
@@ -78,6 +89,11 @@ int cmd_cd(int argc, char *argv[])
     return 0;
 }
 
+// int cmd_if(int argc, int *argv[]){
+
+// }
+
+
 int execute(int argc, char *argv[], char *filename)
 {
     int rc = fork();
@@ -86,15 +102,13 @@ int execute(int argc, char *argv[], char *filename)
     {
         for (int i = 0; i < path_num; i++)
         {
-            char *current_path;
-            current_path = malloc(sizeof(char) * 50);
+            char current_path[256];
             strcpy(current_path, paths[i]);
             strcat(current_path, "/");
             strcat(current_path, argv[0]);
             if (access(current_path, X_OK) == 0)
             {
                 char *temp = strdup(current_path);
-                free(current_path);
                 if (strcmp(filename,"") != 0)
                 {
                     (void)close(STDOUT_FILENO);
@@ -118,9 +132,14 @@ int execute(int argc, char *argv[], char *filename)
 
 int command_process(char *buffer)
 {
-
+    buffer = strtok(buffer, "\n");
     int index = 0;
     int redir_count = 0;
+    if (!buffer)
+    {
+        return 0;
+    }
+    
     while (buffer[index])
     {
         if (buffer[index] == '>')
@@ -134,6 +153,8 @@ int command_process(char *buffer)
         }
         index++;
     }
+    
+
     const char redirect[2] = ">";
     char redirect_cmd[256];
     char redirect_file[256];
@@ -224,6 +245,8 @@ int main(int argc, char const *argv[])
             size_t length = getline(&b, &buffer_size, stdin);
             buffer[length - 1] = '\0';
 
+
+
             command_process(buffer);
         }
     }
@@ -231,7 +254,7 @@ int main(int argc, char const *argv[])
     else if (argc == 2)
     {
         char buffer[256];
-        FILE *fp = fopen(argv[1], "r");
+        fp = fopen(argv[1], "r");
 
         if (NULL == fp)
         {
@@ -240,9 +263,8 @@ int main(int argc, char const *argv[])
 
         while (fgets(buffer, 256, fp) != NULL)
         {
-            command_process(strtok(buffer, "\n"));
+            command_process(buffer);
         }
-        fclose(fp);
     }
     else
     {
@@ -256,3 +278,44 @@ int main(int argc, char const *argv[])
     free(paths);
     return 0;
 }
+// #include<unistd.h>
+// #include<sys/wait.h>
+// #include<string.h>
+// #include<stdio.h>
+// #include<string.h>
+// #include<stdlib.h>
+// #include<fcntl.h>
+// #include<ctype.h>
+
+// int test(){
+//     char error_message[30] = "An error has occurred\n";
+//     int stat;
+//     int rc = fork();
+//     int ret = -1;
+//     if(rc < 0){
+//         write(STDERR_FILENO, error_message, strlen(error_message));
+//     }else if(rc == 0){
+//         //child process
+//         // char *const argv[2] = {"r23", NULL};
+//         execl("r23", NULL);
+//     }else{
+//         //parent process
+//         waitpid(rc, &stat, 0);
+//         if(WIFEXITED(stat)){
+//             ret = WEXITSTATUS(stat);
+//             //printf("Child process exit status = %d\n",WEXITSTATUS(stat));
+//         }else{
+//             printf("Unable to locate exit status\n");
+//         }
+
+//     }
+//     return ret;
+// }
+
+// int main(int argc, char const *argv[])
+// {
+//     int ret = test();
+    
+//     printf("%i", ret);
+
+//     return 0;

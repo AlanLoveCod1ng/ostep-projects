@@ -193,7 +193,7 @@ int command_process(char *buffer)
     }
     
 
-    char arg_temp[30][30];
+    char arg_temp[20][256];
     /* get the first token */
     token = strtok(redirect_cmd, space);
     /* walk through other tokens */
@@ -239,22 +239,26 @@ int command_process(char *buffer)
 
 int cmd_if(char *str)
 {
-    if (strcmp(str,"\n") == 0)
+
+    str = strtok(str,"\n");
+    if (str ==  NULL)
     {
-        return 0;
-    }
-    if (strcmp(str,"") == 0)
-    {
-        err(0);
         return 0;
     }
     
+    if (strcmp(str,"") == 0)
+    {
+        return 0;
+    }
     
     char *token;
     const char space[2] = " ";
     char arg_temp[20][256];
     /* get the first token */
     token = strtok(str, space);
+    if(token == NULL){
+        return 0;
+    }
     /* walk through other tokens */
     int argc = 0;
     while (token != NULL)
@@ -303,9 +307,15 @@ int cmd_if(char *str)
             }
               
         }
-        if (then_index == 2 ||then_index == argc-2 || then_index == 1)
+        if (then_index == argc-2)
         {
-            printf("error");
+            return 0;
+        }
+        
+        if (then_index == 2 || then_index == 1)
+        {
+            err(0);
+            return 0;
         }
         int condition_index = 1;
         int equal = 0;
@@ -326,7 +336,8 @@ int cmd_if(char *str)
         }
         if (condition_index != then_index-2)
         {
-            printf("error");
+            err(0);
+            return(0);
         }
         char condition_action[256];
         for (int i = 1; i < condition_index; i++)

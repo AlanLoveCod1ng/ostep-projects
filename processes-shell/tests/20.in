@@ -1,9 +1,6 @@
-path /bin tests
-p1.sh > /tmp/output201 & p2.sh > /tmp/output202 & p3.sh > /tmp/output203
-cat /tmp/output201
-cat /tmp/output202
-cat /tmp/output203
-rm -rf /tmp/output201
-rm -rf /tmp/output202
-rm -rf /tmp/output203
-exit
+path /bin ./
+gcc /u/c/s/cs537-1/tests/p2a/tests/r23.c -o r23
+gcc /u/c/s/cs537-1/tests/p2a/tests/hello.c -o hello
+
+if r23 != 23 then hello fi
+rm -rf r23 hello

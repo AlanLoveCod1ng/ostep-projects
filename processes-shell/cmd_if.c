@@ -104,8 +104,49 @@ int cmd_if(char *str)
 int main(int argc, char const *argv[])
 {
     /* code */
-    char str[256];
-    strcpy(str, "if a == 1 then b fi");
-    cmd_if(str);
+    // char str[256];
+    // strcpy(str, "if a == 1 then b fi");
+    // cmd_if(str);
     return 0;
 }
+// #include<unistd.h>
+// #include<sys/wait.h>
+// #include<string.h>
+// #include<stdio.h>
+// #include<string.h>
+// #include<stdlib.h>
+// #include<fcntl.h>
+// #include<ctype.h>
+
+// int test(){
+//     char error_message[30] = "An error has occurred\n";
+//     int stat;
+//     int rc = fork();
+//     int ret = -1;
+//     if(rc < 0){
+//         write(STDERR_FILENO, error_message, strlen(error_message));
+//     }else if(rc == 0){
+//         //child process
+//         // char *const argv[2] = {"r23", NULL};
+//         execl("r23", NULL);
+//     }else{
+//         //parent process
+//         waitpid(rc, &stat, 0);
+//         if(WIFEXITED(stat)){
+//             ret = WEXITSTATUS(stat);
+//             //printf("Child process exit status = %d\n",WEXITSTATUS(stat));
+//         }else{
+//             printf("Unable to locate exit status\n");
+//         }
+
+//     }
+//     return ret;
+// }
+
+// int main(int argc, char const *argv[])
+// {
+//     int ret = test();
+    
+//     printf("%i", ret);
+
+//     return 0;

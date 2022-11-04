@@ -1,1 +1,1 @@
-./wish tests/p2a-tests/bad
+./wish $TESTS_FOLDER/p2a-tests/bad

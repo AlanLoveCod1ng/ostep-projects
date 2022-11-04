@@ -51,7 +51,6 @@ void compare(int pid_low, int pid_high, struct pstat *before, struct pstat *afte
 int
 main(int argc, char *argv[])
 {
-  int pid_low = getpid();
   int lowtickets = 0, hightickets = 1;
 
   if (settickets(lowtickets) != 0) {
@@ -64,30 +63,17 @@ main(int argc, char *argv[])
       printf(1, "XV6_SCHEDULER\t FAILED\n"); 
       exit();
     }
-    
-    int pid_high = getpid();
-    struct pstat st_before, st_after;
-        
-    if (getpinfo(&st_before) != 0) {
-      printf(1, "XV6_SCHEDULER\t FAILED\n"); 
-      exit();
-    }
-        
-    printf(1, "\n ****PInfo before**** \n");
-    print(&st_before);
-    printf(1,"Spinning...%d\n", spin());
+    if (fork() == 0)
+    {
+      
+      printf(1,"Spinning...%d\n", spin());
 
-        
-    if (getpinfo(&st_after) != 0) {
-      printf(1, "XV6_SCHEDULER\t FAILED\n"); 
+          
       exit();
     }
-        
-    printf(1, "\n ****PInfo after**** \n");
-    print(&st_after);
-	
-    compare(pid_low, pid_high, &st_before, &st_after);
-         
+    
+    printf(1,"Spinning...%d\n", spin());
+    while (wait() > -1);
     exit();
   }
   printf(1,"Spinning...%d\n", spin());

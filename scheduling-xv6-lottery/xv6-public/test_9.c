@@ -30,7 +30,7 @@ main(int argc, char *argv[]){
 		}
 		int tickets_par = -1,tickets_chd = -1;
 		for(int i = 0; i < NPROC; i++){
-      			if (st.pid[i] == pid_par){
+      		if (st.pid[i] == pid_par){
 				tickets_par = st.tickets[i];
 			}
 			else if (st.pid[i] == pid_chd){

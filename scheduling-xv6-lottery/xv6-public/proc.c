@@ -378,6 +378,7 @@ scheduler(void)
       c->proc = p;
       switchuvm(p);
       p->state = RUNNING;
+      cprintf("name: %s, pid:%d\n",p->name, p->pid);
       p->ticks ++;
       swtch(&(c->scheduler), p->context);
       switchkvm();
@@ -397,6 +398,7 @@ scheduler(void)
         // before jumping back to us.
         c->proc = p;
         switchuvm(p);
+        cprintf("name: %s, pid:%d\n",p->name, p->pid);
         p->state = RUNNING;
         p->ticks ++;
         swtch(&(c->scheduler), p->context);

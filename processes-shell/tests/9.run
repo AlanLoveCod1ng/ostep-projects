@@ -1,1 +1,1 @@
-./wish tests/9.in
+./wish $TESTS_FOLDER/9.in

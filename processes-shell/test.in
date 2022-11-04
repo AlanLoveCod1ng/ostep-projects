@@ -1,1 +1,2 @@
-gcc /u/c/s/cs537-1/tests/p2a/tests/r23.c -o r23
+path ./ /bin
+if cmd_if == 0 then fi

@@ -184,7 +184,7 @@ UPROGS=\
 	_zombie\
 	_test\
 	_null\
-	_test_14\
+	_test_12\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)

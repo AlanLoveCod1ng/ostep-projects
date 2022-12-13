@@ -1,2 +1,0 @@
-path ./ /bin
-if cmd_if == 0 then fi

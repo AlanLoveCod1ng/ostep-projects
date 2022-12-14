@@ -1,5 +1,5 @@
 CC     := gcc
-CFLAGS := -Wall -Werror 
+CFLAGS := -Wall -Werror -g
 
 SRCS   := client.c server.c clientmfs.c
 
@@ -10,7 +10,7 @@ PROGS  := ${SRCS:.c=}
 all: ${PROGS}
 
 ${PROGS} : % : %.o Makefile.net
-	${CC} $< -o $@ udp.c -L. -lmfs
+	${CC} $<  -g -o $@ udp.c -L. -lmfs
 
 clean:
 	rm -f ${PROGS} ${OBJS}

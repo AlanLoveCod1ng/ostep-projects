@@ -9,7 +9,7 @@ struct sockaddr_in addrSnd, addrRcv; // Create client socket for sending, and re
 
 // takes a host name and port number and uses those to find the server exporting the file system.
 int MFS_Init(char *hostname, int port){
-    sd = UDP_Open(20000);   //create the socket (open the client socket in port 20000)
+    sd = UDP_Open(rand()%20000);   //create the socket (open the client socket in port 20000)
     if (sd < 0) {
         return sd;
     }
@@ -46,8 +46,9 @@ int MFS_Lookup(int pinum, char *name){
         printf("client:: failed to read\n");
         return -1;
     }
+    
 
-    return msg.r_inum;    //return inode number of name
+    return msg.rc;    //return inode number of name
 }
 
 
@@ -91,7 +92,7 @@ int MFS_Write(int inum, char *buffer, int offset, int nbytes){
     message_t msg;
     msg.s_inum = inum;
     msg.mtype = 4;  //MFS_WRITE
-    strcpy(msg.s_buffer, buffer);
+    // strcpy(msg.s_buffer, buffer);
     msg.s_offset = offset;
     msg.s_nbytes = nbytes;
 
@@ -118,7 +119,6 @@ int MFS_Read(int inum, char *buffer, int offset, int nbytes){
 
     message_t msg;
     msg.s_inum = inum;
-    strcpy(msg.s_buffer, buffer);
     msg.s_offset = offset;
     msg.s_nbytes = nbytes;
     msg.mtype = 5;  //MFS_READ
@@ -134,8 +134,8 @@ int MFS_Read(int inum, char *buffer, int offset, int nbytes){
         printf("client:: failed to read\n");
         return -1;
     }
-
-    return 0;
+    strcpy(buffer, msg.r_buffer);
+    return msg.rc;
 }
 
 int MFS_Creat(int pinum, int type, char *name){

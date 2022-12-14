@@ -16,21 +16,15 @@ typedef struct {
     //before sending to ther server
     int mtype;                  // type of function
     int s_inum;                 // inode number
-    int s_name[28];             // name of file/dir
-    int s_buffer[4096];         // buffer
+    char s_name[28];             // name of file/dir
     int s_offset;               // offset
     int s_nbytes;               //
     int type;
-    int rc;
-
+    
     //before sending back to the client
-
-    int r_inum;
-    int r_buffer[4096];
-    int r_bufferSize;
-
+    int rc;
+    char r_buffer[4096];
     MFS_Stat_t r_mfs_stat;
-    MFS_DirEnt_t r_mfs_dir;
 
 
 } message_t;

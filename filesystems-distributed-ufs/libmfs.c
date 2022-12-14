@@ -88,11 +88,11 @@ int MFS_Write(int inum, char *buffer, int offset, int nbytes){
     if(inum < 0 || buffer == NULL || offset < 0 || nbytes > 4096 || nbytes < 0){
         return -1;
     }
-
+    MFS_DirEnt_t *t = (MFS_DirEnt_t *)buffer;
     message_t msg;
     msg.s_inum = inum;
     msg.mtype = 4;  //MFS_WRITE
-    // strcpy(msg.s_buffer, buffer);
+    memcpy(msg.r_buffer, buffer, nbytes);
     msg.s_offset = offset;
     msg.s_nbytes = nbytes;
 

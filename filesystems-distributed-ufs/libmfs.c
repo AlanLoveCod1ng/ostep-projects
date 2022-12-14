@@ -107,7 +107,7 @@ int MFS_Write(int inum, char *buffer, int offset, int nbytes){
         printf("client:: failed to read\n");
         return -1;
     }
-    return 0;
+    return msg.rc;
 
 }
 

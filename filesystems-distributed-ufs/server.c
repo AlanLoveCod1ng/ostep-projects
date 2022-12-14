@@ -236,10 +236,10 @@ int mfs_write(message_t  *mptr, char *filename){
 	int inodeRegionOffset = mptr->s_inum*sizeof(inode_t)%UFS_BLOCK_SIZE;
     inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset*sizeof(inode_t));
 	// check if the end position is out of file
-	// if (inode->type !=MFS_REGULAR_FILE)
-	// {
-	// 	return -1;
-	// }
+	if (inode->type !=MFS_REGULAR_FILE)
+	{
+		return -1;
+	}
 	
 	int end = mptr->s_offset + mptr->s_nbytes;
 	if (end > inode->size)

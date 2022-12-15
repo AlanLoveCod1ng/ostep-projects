@@ -28,6 +28,12 @@ void set_bit(unsigned int *bitmap, int position) {
    bitmap[index] |=  0x1 << offset;
 }
 
+void clear_bit(unsigned int *bitmap, int position) {
+   int index = position / 32;
+   int offset = 31 - (position % 32);
+   bitmap[index] &= ~(0x1 << offset);
+}
+
 int mfs_lookup(message_t *mptr, void *image){
 
     super_t *s = (super_t *) image;
@@ -348,6 +354,12 @@ int mfs_create(message_t  *mptr, char *image){
 		e.inum = temp_m.s_inum;
 		strcpy(e.name, "..");
 		memcpy(&temp_m.r_buffer[sizeof(dir_ent_t)], (void *)&e, sizeof(dir_ent_t));
+		e.inum = -1;
+		strcpy(e.name, "");
+		for (int i = 2; i < UFS_BLOCK_SIZE/sizeof(dir_ent_t); i++)
+		{
+			memcpy(&temp_m.r_buffer[sizeof(dir_ent_t)*i], (void *)&e, sizeof(dir_ent_t));
+		}
 		temp_m.mtype = MFS_WRITE;
 		temp_m.s_inum = assignedInode;
 		temp_m.s_offset = 0;
@@ -365,12 +377,11 @@ int mfs_create(message_t  *mptr, char *image){
 	{
 		if (inode->direct[i] == UPPER_BOUND)
 		{
-			parent_last_block = inode->direct[i-1];
-			break;
+			continue;
 		}
 		else{
+			parent_last_block = inode->direct[i];
 			num_block += 1;
-			continue;
 		}
 	}
 	if (parent_last_block == -1)
@@ -406,6 +417,99 @@ int mfs_create(message_t  *mptr, char *image){
 	
 }
 
+
+int mfs_unlink(message_t  *mptr, char *image){
+
+    super_t *s = (super_t *) image;
+    int inodeBitBlock = mptr->s_inum/(UFS_BLOCK_SIZE*8);
+	int inodeBitOffset= mptr->s_inum%(UFS_BLOCK_SIZE*8);
+    void * inodeBitMap = (void *)((long)image + (s->inode_bitmap_addr+inodeBitBlock) * UFS_BLOCK_SIZE );
+
+    unsigned int bit = get_bit(inodeBitMap, inodeBitOffset);
+    if (bit == 0)
+	{
+		return -1;
+	}
+	
+    int inodeRegionBlock = mptr->s_inum*sizeof(inode_t)/UFS_BLOCK_SIZE;
+	int inodeRegionOffset = mptr->s_inum*sizeof(inode_t)%UFS_BLOCK_SIZE;
+    inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset);
+	if (inode->type != UFS_DIRECTORY)
+	{
+		return -1;
+	}
+	
+	message_t lookupMessage;
+	lookupMessage.mtype = MFS_LOOKUP;
+    lookupMessage.s_inum = mptr->s_inum;
+    strcpy(lookupMessage.s_name, mptr->s_name);
+	int childInodeNumber;
+	if((childInodeNumber = mfs_lookup(&lookupMessage, image))==-1){
+		return 0;
+	}
+	inodeRegionBlock = childInodeNumber*sizeof(inode_t)/UFS_BLOCK_SIZE;
+	int inodeRegionOffset = childInodeNumber*sizeof(inode_t)%UFS_BLOCK_SIZE;
+	inode_t *childInode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset);
+	
+	if(childInode->type == MFS_DIRECTORY){
+		void *block_start = (void *)((long)image + childInode->direct[0]*UFS_BLOCK_SIZE);
+		int num_det = UFS_BLOCK_SIZE/sizeof(dir_ent_t);
+		for (int j = 0; j < num_det; j++)
+		{
+			dir_ent_t *det = (dir_ent_t *)((long)block_start + j*sizeof(dir_ent_t));
+			if (det->inum == -1)
+			{
+				// not empty
+				if(j > 2){
+					return -1;
+				}
+				continue;
+			}
+		}
+	}
+
+	int *dir = childInode->direct;
+	
+	for (int i = 0; i < DIRECT_PTRS; i++)
+	{
+		if (dir[i] == UPPER_BOUND)
+		{
+			continue;
+		}
+		void * dataMap = (void *)((dir[i]-s->data_region_addr)/(UFS_BLOCK_SIZE*8)*UFS_BLOCK_SIZE+s->data_bitmap_addr*UFS_BLOCK_SIZE);
+		int currentDataBit = (dir[i]-s->data_region_addr)%(UFS_BLOCK_SIZE*8);
+		clear_bit(dataMap, currentDataBit);
+	}
+	
+	for (int i = 0; i < DIRECT_PTRS; i++)
+	{
+		if (inode->direct[i] == UPPER_BOUND)
+		{
+			continue;
+		}
+		void *block_start = (void *)((long)image + inode->direct[i]*UFS_BLOCK_SIZE);
+		int num_det = UFS_BLOCK_SIZE/sizeof(dir_ent_t);
+		for (int j = 0; j < num_det; j++)
+		{
+			dir_ent_t *det = (dir_ent_t *)((long)block_start + j*sizeof(dir_ent_t));
+			if (det->inum == -1)
+			{
+				continue;
+			}
+			
+			if (strcmp(det->name, mptr->s_name) == 0)
+			{
+				dir_ent_t empty;
+				empty.inum = -1;
+				strcpy(empty.name, "");
+				memcpy((void *)det,&empty, sizeof(dir_ent_t));
+			}
+		}
+	}
+
+	return 0;
+	
+}
 
 void intHandler(int dummy) {
     UDP_Close(sd);

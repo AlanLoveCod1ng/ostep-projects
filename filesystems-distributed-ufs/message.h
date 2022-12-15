@@ -19,7 +19,7 @@ typedef struct {
     char s_name[28];             // name of file/dir
     int s_offset;               // offset
     int s_nbytes;               //
-    int type;
+    int file_type;
     
     //before sending back to the client
     int rc;

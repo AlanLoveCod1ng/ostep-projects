@@ -28,18 +28,7 @@ void set_bit(unsigned int *bitmap, int position) {
    bitmap[index] |=  0x1 << offset;
 }
 
-int mfs_lookup(message_t *mptr, char *filename){
-	int fd = open(filename, O_RDWR);
-    assert(fd > -1);
-
-    struct stat sbuf;
-    int rc = fstat(fd, &sbuf);
-    assert(rc > -1);
-
-    int image_size = (int) sbuf.st_size;
-
-    void *image = mmap(NULL, image_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    assert(image != MAP_FAILED);
+int mfs_lookup(message_t *mptr, void *image){
 
     super_t *s = (super_t *) image;
 	int inodeBitBlock = mptr->s_inum/(UFS_BLOCK_SIZE*8);
@@ -54,7 +43,7 @@ int mfs_lookup(message_t *mptr, char *filename){
 	
     int inodeRegionBlock = mptr->s_inum*sizeof(inode_t)/UFS_BLOCK_SIZE;
 	int inodeRegionOffset = mptr->s_inum*sizeof(inode_t)%UFS_BLOCK_SIZE;
-    inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset*sizeof(inode_t));
+    inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset);
 	if (inode->type != UFS_DIRECTORY)
 	{
 		return -1;
@@ -82,22 +71,10 @@ int mfs_lookup(message_t *mptr, char *filename){
 			}
 		}
 	}
-	close(fd);
     return -1;
 }
 
-int mfs_stat(message_t *mptr, char *filename){
-	int fd = open(filename, O_RDWR);
-    assert(fd > -1);
-
-    struct stat sbuf;
-    int rc = fstat(fd, &sbuf);
-    assert(rc > -1);
-
-    int image_size = (int) sbuf.st_size;
-
-    void *image = mmap(NULL, image_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    assert(image != MAP_FAILED);
+int mfs_stat(message_t *mptr, void *image){
 
     super_t *s = (super_t *) image;
 	int inodeBitBlock = mptr->s_inum/(UFS_BLOCK_SIZE*8);
@@ -112,25 +89,13 @@ int mfs_stat(message_t *mptr, char *filename){
 	
     int inodeRegionBlock = mptr->s_inum*sizeof(inode_t)/UFS_BLOCK_SIZE;
 	int inodeRegionOffset = mptr->s_inum*sizeof(inode_t)%UFS_BLOCK_SIZE;
-    inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset*sizeof(inode_t));
+    inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset);
 	mptr->r_mfs_stat.type = inode->type;
 	mptr->r_mfs_stat.size = inode->size;
-	close(fd);
     return -1;
 }
 
-int mfs_read(message_t  *mptr, char *filename){
-	int fd = open(filename, O_RDWR);
-    assert(fd > -1);
-
-    struct stat sbuf;
-    int rc = fstat(fd, &sbuf);
-    assert(rc > -1);
-
-    int image_size = (int) sbuf.st_size;
-
-    void *image = mmap(NULL, image_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    assert(image != MAP_FAILED);
+int mfs_read(message_t  *mptr, char *image){
 
     super_t *s = (super_t *) image;
 	int inodeBitBlock = mptr->s_inum/(UFS_BLOCK_SIZE*8);
@@ -145,7 +110,7 @@ int mfs_read(message_t  *mptr, char *filename){
 
 	int inodeRegionBlock = mptr->s_inum*sizeof(inode_t)/UFS_BLOCK_SIZE;
 	int inodeRegionOffset = mptr->s_inum*sizeof(inode_t)%UFS_BLOCK_SIZE;
-    inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset*sizeof(inode_t));
+    inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset);
 	// check if the end position is out of file
 	if (inode->size<(mptr->s_offset+mptr->s_nbytes) && mptr->s_nbytes < 4096)
 	{
@@ -203,23 +168,11 @@ int mfs_read(message_t  *mptr, char *filename){
 	{
 		return -1;
 	}
-	close(fd);
 	return 0;
 	
 }
 
-int mfs_write(message_t  *mptr, char *filename){
-	int fd = open(filename, O_RDWR);
-    assert(fd > -1);
-
-    struct stat sbuf;
-    int rc = fstat(fd, &sbuf);
-    assert(rc > -1);
-
-    int image_size = (int) sbuf.st_size;
-
-    void *image = mmap(NULL, image_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    assert(image != MAP_FAILED);
+int mfs_write(message_t  *mptr, void *image, int innercall){
 
     super_t *s = (super_t *) image;
     int inodeBitBlock = mptr->s_inum/(UFS_BLOCK_SIZE*8);
@@ -234,14 +187,14 @@ int mfs_write(message_t  *mptr, char *filename){
 	
     int inodeRegionBlock = mptr->s_inum*sizeof(inode_t)/UFS_BLOCK_SIZE;
 	int inodeRegionOffset = mptr->s_inum*sizeof(inode_t)%UFS_BLOCK_SIZE;
-    inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset*sizeof(inode_t));
+    inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset);
 	// check if the end position is out of file
-	if (inode->type !=MFS_REGULAR_FILE)
-	{
-		return -1;
-	}
+	// if (inode->type != MFS_REGULAR_FILE && innercall == 0)
+	// {
+	// 	return -1;
+	// }
 	
-	int end = mptr->s_offset + mptr->s_nbytes;
+	int end = mptr->s_offset + mptr->s_nbytes -1;
 	if (end > inode->size)
 	{
 		int new_size = end;
@@ -276,8 +229,8 @@ int mfs_write(message_t  *mptr, char *filename){
 
 	int start_index_block = mptr->s_offset/UFS_BLOCK_SIZE;
 	int start_offset_block = mptr->s_offset%UFS_BLOCK_SIZE;
-	int end_index_block = (mptr->s_offset+mptr->s_nbytes)/UFS_BLOCK_SIZE;
-	int end_offset_block = (mptr->s_offset+mptr->s_nbytes)%UFS_BLOCK_SIZE;
+	int end_index_block = end/UFS_BLOCK_SIZE;
+	int end_offset_block = end%UFS_BLOCK_SIZE;
 	if (start_index_block == end_index_block)
 	{
 		void *start = (void *)((long)image + (long)start_offset_block+ inode->direct[start_index_block]*UFS_BLOCK_SIZE);
@@ -292,11 +245,167 @@ int mfs_write(message_t  *mptr, char *filename){
 		memcpy(start2, &mptr->r_buffer[UFS_BLOCK_SIZE - start_offset_block], end_offset_block);
 	}
 
-	fsync(fd);
-	close(fd);
 	return 0;
 	
 }
+
+int mfs_create(message_t  *mptr, char *image){
+
+    super_t *s = (super_t *) image;
+    int inodeBitBlock = mptr->s_inum/(UFS_BLOCK_SIZE*8);
+	int inodeBitOffset= mptr->s_inum%(UFS_BLOCK_SIZE*8);
+    void * inodeBitMap = (void *)((long)image + (s->inode_bitmap_addr+inodeBitBlock) * UFS_BLOCK_SIZE );
+
+    unsigned int bit = get_bit(inodeBitMap, inodeBitOffset);
+    if (bit == 0)
+	{
+		return -1;
+	}
+	
+    int inodeRegionBlock = mptr->s_inum*sizeof(inode_t)/UFS_BLOCK_SIZE;
+	int inodeRegionOffset = mptr->s_inum*sizeof(inode_t)%UFS_BLOCK_SIZE;
+    inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset);
+	if (inode->type != UFS_DIRECTORY)
+	{
+		return -1;
+	}
+	
+	message_t lookupMessage;
+	lookupMessage.mtype = MFS_LOOKUP;
+    lookupMessage.s_inum = mptr->s_inum;
+    strcpy(lookupMessage.s_name, mptr->s_name);
+	if(mfs_lookup(&lookupMessage, image)!=-1){
+		return 0;
+	}
+
+	int inode_regions = s->inode_region_len*(UFS_BLOCK_SIZE/sizeof(inode_t));
+	inodeBitMap = (void *)((long)image + s->inode_bitmap_addr * UFS_BLOCK_SIZE );
+	int assignedInode = -1;
+	for (int i = 0; i < inode_regions; i++)
+	{
+		void * inodeMap = (void *)((i/(UFS_BLOCK_SIZE*8))*UFS_BLOCK_SIZE + (long)inodeBitMap);
+		int currentInode = i%(UFS_BLOCK_SIZE*8);
+		bit = get_bit(inodeMap, currentInode);
+		if (bit == 0)
+		{
+			assignedInode = i;
+			set_bit(inodeMap, currentInode);
+			break;
+		}
+		else
+		{
+			continue;
+		}
+	}
+	// no available inode
+	if (assignedInode == -1)
+	{
+		return -1;
+	}
+	inode_t *childInode = (inode_t *)((long)image + s->inode_region_addr*UFS_BLOCK_SIZE + assignedInode*sizeof(inode_t));
+
+	int data_blocks = s->data_region_len;
+	void * dataBitMap = (void *)((long)image + s->data_bitmap_addr * UFS_BLOCK_SIZE );
+	int assignedDataBlock = -1;
+	for (int i = 0; i < data_blocks; i++)
+	{
+		void* dataMap = (void *)((i/(UFS_BLOCK_SIZE*8))*UFS_BLOCK_SIZE + (long)dataBitMap);
+		int currentNum = i%(UFS_BLOCK_SIZE*8);
+		bit = get_bit(dataMap, currentNum);
+		if (bit == 0)
+		{
+			assignedDataBlock = i;
+			set_bit(dataMap,currentNum);
+			break;
+		}
+		else {
+			continue;
+		}
+	}
+	// no available data block
+	if(assignedDataBlock == -1){
+		return -1;
+	}
+
+	childInode->type = mptr->file_type;
+	childInode->size = 0;
+	childInode->direct[0] = s->data_region_addr+assignedDataBlock;
+	for (int i = 1; i < DIRECT_PTRS; i++)
+	{
+		childInode->direct[i] = UPPER_BOUND;
+	}
+	// check if the end position is out of file
+	if (childInode->type ==MFS_REGULAR_FILE)
+	{
+		
+	}
+	else if(childInode->type ==MFS_DIRECTORY){
+		message_t temp_m;
+		dir_ent_t e;
+		e.inum = assignedInode;
+		strcpy(e.name, ".");
+		memcpy(temp_m.r_buffer, (void *)&e, sizeof(dir_ent_t));
+		e.inum = temp_m.s_inum;
+		strcpy(e.name, "..");
+		memcpy(&temp_m.r_buffer[sizeof(dir_ent_t)], (void *)&e, sizeof(dir_ent_t));
+		temp_m.mtype = MFS_WRITE;
+		temp_m.s_inum = assignedInode;
+		temp_m.s_offset = 0;
+		temp_m.s_nbytes = 2*sizeof(dir_ent_t);
+		mfs_write(&temp_m, image, 1);
+		childInode->size = 2*sizeof(dir_ent_t);
+	}
+	else
+	{
+		return -1;
+	}
+	int parent_last_block = -1;
+	int num_block = 0;
+	for (int i = 0; i < DIRECT_PTRS; i++)
+	{
+		if (inode->direct[i] == UPPER_BOUND)
+		{
+			parent_last_block = inode->direct[i-1];
+			break;
+		}
+		else{
+			num_block += 1;
+			continue;
+		}
+	}
+	if (parent_last_block == -1)
+	{
+		return -1;
+	}
+	void *block_start = (void*)((long)image + parent_last_block*UFS_BLOCK_SIZE);
+	int offset = (num_block-1)*UFS_BLOCK_SIZE;
+	for (int i = 0; i < UFS_BLOCK_SIZE/sizeof(dir_ent_t); i++)
+	{
+		dir_ent_t *currentEntry = (dir_ent_t *)((long)block_start + i*sizeof(dir_ent_t));
+		if (currentEntry->inum!=-1)
+		{
+			offset += sizeof(dir_ent_t);
+		}
+		else
+		{
+			break;
+		}
+	}
+	dir_ent_t e;
+	e.inum = assignedInode;
+	strcpy(e.name, mptr->s_name);
+	message_t temp_m;
+	memcpy(temp_m.r_buffer, &e, sizeof(dir_ent_t));
+	temp_m.mtype = MFS_WRITE;
+	temp_m.s_inum = mptr->s_inum;
+	temp_m.s_offset = offset;
+	temp_m.s_nbytes = sizeof(dir_ent_t);
+	mfs_write(&temp_m, image, 1);
+
+	return 0;
+	
+}
+
 
 void intHandler(int dummy) {
     UDP_Close(sd);
@@ -313,6 +422,9 @@ int main(int argc, char *argv[]) {
 	char *filename = argv[2];
     sd = UDP_Open(port);
     assert(sd > -1);
+
+	int fd;
+    void *image;
     while (1) {
 		struct sockaddr_in addr;
 
@@ -325,28 +437,38 @@ int main(int argc, char *argv[]) {
 			switch (m.mtype)
 			{
 			case MFS_INIT:
+				fd = open(filename, O_RDWR);
+				assert(fd > -1);
 
+				struct stat sbuf;
+				int rc = fstat(fd, &sbuf);
+				assert(rc > -1);
+
+				int image_size = (int) sbuf.st_size;
+				image = mmap(NULL, image_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+				m.rc = 0;
 				break;
 			case MFS_LOOKUP:
-				m.rc = mfs_lookup(&m, filename);
+				m.rc = mfs_lookup(&m, image);
 				break;
 			case MFS_STAT:
-				m.rc = mfs_stat(&m, filename);
+				m.rc = mfs_stat(&m, image);
 				break;
 			case MFS_WRITE:
-				m.rc = mfs_write(&m, filename);
+				m.rc = mfs_write(&m, image, 0);
 				break;
 			case MFS_READ:
-				m.rc = mfs_read(&m, filename);
+				m.rc = mfs_read(&m, image);
 				break;
 			case MFS_CREAT:
-
+				m.rc = mfs_create(&m, image);
 				break;
 			case MFS_UNLINK:
 
 				break;
 			case MFS_SHUTDOWN:
-
+				fsync(fd);
+				close(fd);
 				break;
 			default:
 				break;

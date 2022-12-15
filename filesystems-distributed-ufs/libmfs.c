@@ -17,8 +17,21 @@ int MFS_Init(char *hostname, int port){
     if (rc < 0) {
         printf("client:: failed to send\n");
         return rc;
-    } 
-    return 0;
+    }
+    message_t msg;
+    msg.mtype = MFS_INIT;
+    rc = UDP_Write(sd, &addrSnd, (char*) &msg, sizeof(message_t));
+    if(rc < 0){
+        printf("client:: failed to send\n");
+        return -1;
+    }
+
+    rc = UDP_Read(sd, &addrRcv, (char*) &msg, sizeof(message_t));
+    if(rc < 0){
+        printf("client:: failed to read\n");
+        return -1;
+    }
+    return msg.rc;
 }
 
 int MFS_Lookup(int pinum, char *name){
@@ -88,7 +101,6 @@ int MFS_Write(int inum, char *buffer, int offset, int nbytes){
     if(inum < 0 || buffer == NULL || offset < 0 || nbytes > 4096 || nbytes < 0){
         return -1;
     }
-    MFS_DirEnt_t *t = (MFS_DirEnt_t *)buffer;
     message_t msg;
     msg.s_inum = inum;
     msg.mtype = 4;  //MFS_WRITE
@@ -146,7 +158,7 @@ int MFS_Creat(int pinum, int type, char *name){
 
     message_t msg;
     msg.s_inum = pinum;
-    msg.mtype = type;
+    msg.file_type = type;
     strcpy(msg.s_name, name);
     msg.mtype = 6;   //MFS_CREAT
 
@@ -162,7 +174,7 @@ int MFS_Creat(int pinum, int type, char *name){
         return -1;
     }
     
-    return 0;
+    return msg.rc;
 }
 
 

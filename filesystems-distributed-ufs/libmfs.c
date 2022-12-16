@@ -18,20 +18,7 @@ int MFS_Init(char *hostname, int port){
         printf("client:: failed to send\n");
         return rc;
     }
-    message_t msg;
-    msg.mtype = MFS_INIT;
-    rc = UDP_Write(sd, &addrSnd, (char*) &msg, sizeof(message_t));
-    if(rc < 0){
-        printf("client:: failed to send\n");
-        return -1;
-    }
-
-    rc = UDP_Read(sd, &addrRcv, (char*) &msg, sizeof(message_t));
-    if(rc < 0){
-        printf("client:: failed to read\n");
-        return -1;
-    }
-    return msg.rc;
+    return 0;
 }
 
 int MFS_Lookup(int pinum, char *name){

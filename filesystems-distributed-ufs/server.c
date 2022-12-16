@@ -602,6 +602,15 @@ int main(int argc, char *argv[]) {
 
 	int fd;
     void *image;
+	fd = open(filename, O_RDWR);
+	assert(fd > -1);
+
+	struct stat sbuf;
+	int rc = fstat(fd, &sbuf);
+	assert(rc > -1);
+
+	int image_size = (int) sbuf.st_size;
+	image = mmap(NULL, image_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     while (1) {
 		struct sockaddr_in addr;
 
@@ -614,16 +623,7 @@ int main(int argc, char *argv[]) {
 			switch (m.mtype)
 			{
 			case MFS_INIT:
-				fd = open(filename, O_RDWR);
-				assert(fd > -1);
-
-				struct stat sbuf;
-				int rc = fstat(fd, &sbuf);
-				assert(rc > -1);
-
-				int image_size = (int) sbuf.st_size;
-				image = mmap(NULL, image_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-				m.rc = 0;
+				
 				break;
 			case MFS_LOOKUP:
 				m.rc = mfs_lookup(&m, image);

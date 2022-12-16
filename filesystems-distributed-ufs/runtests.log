@@ -44,11 +44,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9633
-/tmp/tmpYSJVRK/p/server 9633 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 7588
+/tmp/tmpjAUqOV/p/server 7588 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(8)]
 
@@ -70,11 +67,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 7113
-/tmp/tmpYSJVRK/p/server 7113 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 5630
+/tmp/tmpjAUqOV/p/server 5630 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -106,11 +100,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9776
-/tmp/tmpYSJVRK/p/server 9776 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 7724
+/tmp/tmpjAUqOV/p/server 7724 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -155,11 +146,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 7132
-/tmp/tmpYSJVRK/p/server 7132 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 7850
+/tmp/tmpjAUqOV/p/server 7850 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -208,11 +196,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 7679
-/tmp/tmpYSJVRK/p/server 7679 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 7056
+/tmp/tmpjAUqOV/p/server 7056 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -266,11 +251,8 @@ total blocks        39
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 8295
-/tmp/tmpYSJVRK/p/server 8295 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 8085
+/tmp/tmpjAUqOV/p/server 8085 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -632,11 +614,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9405
-/tmp/tmpYSJVRK/p/server 9405 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 5580
+/tmp/tmpjAUqOV/p/server 5580 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -1011,11 +990,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 7767
-/tmp/tmpYSJVRK/p/server 7767 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 7658
+/tmp/tmpjAUqOV/p/server 7658 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(2)]
 server:: reply
@@ -1043,11 +1019,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 8611
-/tmp/tmpYSJVRK/p/server 8611 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 9259
+/tmp/tmpjAUqOV/p/server 9259 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -1089,11 +1062,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 7183
-/tmp/tmpYSJVRK/p/server 7183 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 5871
+/tmp/tmpjAUqOV/p/server 5871 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -1128,11 +1098,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 7703
-/tmp/tmpYSJVRK/p/server 7703 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 10000
+/tmp/tmpjAUqOV/p/server 10000 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -1167,11 +1134,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 6356
-/tmp/tmpYSJVRK/p/server 6356 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 6103
+/tmp/tmpjAUqOV/p/server 6103 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -1209,11 +1173,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 6247
-/tmp/tmpYSJVRK/p/server 6247 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 5201
+/tmp/tmpjAUqOV/p/server 5201 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -1255,11 +1216,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 8764
-/tmp/tmpYSJVRK/p/server 8764 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 6829
+/tmp/tmpjAUqOV/p/server 6829 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -1314,11 +1272,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5404
-/tmp/tmpYSJVRK/p/server 5404 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 9863
+/tmp/tmpjAUqOV/p/server 9863 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(8)]
 
@@ -1340,11 +1295,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 8036
-/tmp/tmpYSJVRK/p/server 8036 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 8089
+/tmp/tmpjAUqOV/p/server 8089 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -1371,11 +1323,20 @@ server:: read message [size:4156 contents:(5)]
 server:: reply
 server:: waiting...
 server:: read message [size:4156 contents:(8)]
+Starting server on port 8089
+/tmp/tmpjAUqOV/p/server 8089 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
 
 
-test persist FAILED
+test persist PASSED
  (restart server after creating a file)
- Timelimit (30.0s) exceeded
 
 ('starting', 'bigdir')
 
@@ -1385,18 +1346,14 @@ Test bigdir
 create a directory with 126 files
 
 **********************************************************************
-client:: failed to read
 total blocks        39
   inodes            128 [size of each: 128]
   data blocks       32
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 7152
-/tmp/tmpYSJVRK/p/server 7152 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 7425
+/tmp/tmpjAUqOV/p/server 7425 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -2692,11 +2649,8 @@ total blocks        39
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 6811
-/tmp/tmpYSJVRK/p/server 6811 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-server:: waiting...
-server:: read message [size:4156 contents:(1)]
-server:: reply
+Starting server on port 6956
+/tmp/tmpjAUqOV/p/server 6956 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(6)]
 Here1
@@ -2839,9 +2793,8 @@ test empty PASSED
 test name PASSED
  (name too long)
 
-test persist FAILED
+test persist PASSED
  (restart server after creating a file)
- Timelimit (30.0s) exceeded
 
 test bigdir PASSED
  (create a directory with 126 files)
@@ -2849,5 +2802,5 @@ test bigdir PASSED
 test deep PASSED
  (create many deeply nested directories)
 
-Passed 18 of 19 tests.
-Overall 18 of 19
+Passed 19 of 19 tests.
+Overall 19 of 19

@@ -44,8 +44,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 6538
-/tmp/tmp9dtQ7D/p/server 6538 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 9633
+/tmp/tmpYSJVRK/p/server 9633 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -70,8 +70,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 7093
-/tmp/tmp9dtQ7D/p/server 7093 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 7113
+/tmp/tmpYSJVRK/p/server 7113 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -106,8 +106,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5108
-/tmp/tmp9dtQ7D/p/server 5108 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 9776
+/tmp/tmpYSJVRK/p/server 9776 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -155,8 +155,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 6458
-/tmp/tmp9dtQ7D/p/server 6458 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 7132
+/tmp/tmpYSJVRK/p/server 7132 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -208,8 +208,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5850
-/tmp/tmp9dtQ7D/p/server 5850 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 7679
+/tmp/tmpYSJVRK/p/server 7679 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -266,8 +266,8 @@ total blocks        39
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 8171
-/tmp/tmp9dtQ7D/p/server 8171 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 8295
+/tmp/tmpYSJVRK/p/server 8295 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -632,8 +632,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9319
-/tmp/tmp9dtQ7D/p/server 9319 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 9405
+/tmp/tmpYSJVRK/p/server 9405 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -1011,8 +1011,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5375
-/tmp/tmp9dtQ7D/p/server 5375 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 7767
+/tmp/tmpYSJVRK/p/server 7767 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -1043,8 +1043,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9812
-/tmp/tmp9dtQ7D/p/server 9812 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 8611
+/tmp/tmpYSJVRK/p/server 8611 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -1089,8 +1089,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9444
-/tmp/tmp9dtQ7D/p/server 9444 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 7183
+/tmp/tmpYSJVRK/p/server 7183 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -1128,8 +1128,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5966
-/tmp/tmp9dtQ7D/p/server 5966 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 7703
+/tmp/tmpYSJVRK/p/server 7703 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -1167,8 +1167,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5001
-/tmp/tmp9dtQ7D/p/server 5001 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 6356
+/tmp/tmpYSJVRK/p/server 6356 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -1209,8 +1209,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 6026
-/tmp/tmp9dtQ7D/p/server 6026 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 6247
+/tmp/tmpYSJVRK/p/server 6247 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -1255,8 +1255,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 7646
-/tmp/tmp9dtQ7D/p/server 7646 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 8764
+/tmp/tmpYSJVRK/p/server 8764 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -1314,8 +1314,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5994
-/tmp/tmp9dtQ7D/p/server 5994 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 5404
+/tmp/tmpYSJVRK/p/server 5404 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -1340,8 +1340,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9526
-/tmp/tmp9dtQ7D/p/server 9526 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 8036
+/tmp/tmpYSJVRK/p/server 8036 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -1392,14 +1392,1291 @@ total blocks        39
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9730
-/tmp/tmp9dtQ7D/p/server 9730 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-Failure: MFS_Creat returned failure inum=1 type=1 name='30'
+Starting server on port 7152
+/tmp/tmpYSJVRK/p/server 7152 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+.
+Here2
+Here3
+1Here1
+testdir
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+0
+Here2
+Here3
+2server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+1
+Here2
+Here3
+3server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+2
+Here2
+Here3
+4server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+3
+Here2
+Here3
+5server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+4
+Here2
+Here3
+6server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+5
+Here2
+Here3
+7server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+6
+Here2
+Here3
+8server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+7
+Here2
+Here3
+9server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+8
+Here2
+Here3
+10server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+9
+Here2
+Here3
+11server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+10
+Here2
+Here3
+12server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+11
+Here2
+Here3
+13server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+12
+Here2
+Here3
+14server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+13
+Here2
+Here3
+15server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+14
+Here2
+Here3
+16server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+15
+Here2
+Here3
+17server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+16
+Here2
+Here3
+18server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+17
+Here2
+Here3
+19server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+18
+Here2
+Here3
+20server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+19
+Here2
+Here3
+21server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+20
+Here2
+Here3
+22server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+21
+Here2
+Here3
+23server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+22
+Here2
+Here3
+24server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+23
+Here2
+Here3
+25server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+24
+Here2
+Here3
+26server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+25
+Here2
+Here3
+27server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+26
+Here2
+Here3
+28server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+27
+Here2
+Here3
+29server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+28
+Here2
+Here3
+30server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+29
+Here2
+Here3
+31server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+30
+Here2
+Here3
+32server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+31
+Here2
+Here3
+33server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+32
+Here2
+Here3
+34server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+33
+Here2
+Here3
+35server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+34
+Here2
+Here3
+36server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+35
+Here2
+Here3
+37server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+36
+Here2
+Here3
+38server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+37
+Here2
+Here3
+39server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+38
+Here2
+Here3
+40server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+39
+Here2
+Here3
+41server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+40
+Here2
+Here3
+42server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+41
+Here2
+Here3
+43server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+42
+Here2
+Here3
+44server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+43
+Here2
+Here3
+45server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+44
+Here2
+Here3
+46server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+45
+Here2
+Here3
+47server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+46
+Here2
+Here3
+48server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+47
+Here2
+Here3
+49server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+48
+Here2
+Here3
+50server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+49
+Here2
+Here3
+51server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+50
+Here2
+Here3
+52server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+51
+Here2
+Here3
+53server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+52
+Here2
+Here3
+54server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+53
+Here2
+Here3
+55server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+54
+Here2
+Here3
+56server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+55
+Here2
+Here3
+57server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+56
+Here2
+Here3
+58server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+57
+Here2
+Here3
+59server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+58
+Here2
+Here3
+60server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+59
+Here2
+Here3
+61server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+60
+Here2
+Here3
+62server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+61
+Here2
+Here3
+63server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+62
+Here2
+Here3
+64server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+63
+Here2
+Here3
+65server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+64
+Here2
+Here3
+66server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+65
+Here2
+Here3
+67server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+66
+Here2
+Here3
+68server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+67
+Here2
+Here3
+69server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+68
+Here2
+Here3
+70server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+69
+Here2
+Here3
+71server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+70
+Here2
+Here3
+72server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+71
+Here2
+Here3
+73server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+72
+Here2
+Here3
+74server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+73
+Here2
+Here3
+75server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+74
+Here2
+Here3
+76server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+75
+Here2
+Here3
+77server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+76
+Here2
+Here3
+78server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+77
+Here2
+Here3
+79server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+78
+Here2
+Here3
+80server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+79
+Here2
+Here3
+81server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+80
+Here2
+Here3
+82server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+81
+Here2
+Here3
+83server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+82
+Here2
+Here3
+84server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+83
+Here2
+Here3
+85server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+84
+Here2
+Here3
+86server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+85
+Here2
+Here3
+87server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+86
+Here2
+Here3
+88server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+87
+Here2
+Here3
+89server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+88
+Here2
+Here3
+90server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+89
+Here2
+Here3
+91server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+90
+Here2
+Here3
+92server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+91
+Here2
+Here3
+93server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+92
+Here2
+Here3
+94server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+93
+Here2
+Here3
+95server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+94
+Here2
+Here3
+96server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+95
+Here2
+Here3
+97server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+96
+Here2
+Here3
+98server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+97
+Here2
+Here3
+99server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+98
+Here2
+Here3
+100server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+99
+Here2
+Here3
+101server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+100
+Here2
+Here3
+102server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+101
+Here2
+Here3
+103server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+102
+Here2
+Here3
+104server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+103
+Here2
+Here3
+105server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+104
+Here2
+Here3
+106server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+105
+Here2
+Here3
+107server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+106
+Here2
+Here3
+108server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+107
+Here2
+Here3
+109server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+108
+Here2
+Here3
+110server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+109
+Here2
+Here3
+111server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+110
+Here2
+Here3
+112server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+111
+Here2
+Here3
+113server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+112
+Here2
+Here3
+114server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+113
+Here2
+Here3
+115server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+114
+Here2
+Here3
+116server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+115
+Here2
+Here3
+117server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+116
+Here2
+Here3
+118server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+117
+Here2
+Here3
+119server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+118
+Here2
+Here3
+120server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+119
+Here2
+Here3
+121server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+120
+Here2
+Here3
+122server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+121
+Here2
+Here3
+123server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+122
+Here2
+Here3
+124server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+123
+Here2
+Here3
+125server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+124
+Here2
+Here3
+126server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+125
+Here2
+Here3
+127server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
 
 
-test bigdir FAILED
+test bigdir PASSED
  (create a directory with 126 files)
- MFS_Creat returned failure inum=1 type=1 name='30'
 
 ('starting', 'deep')
 
@@ -1415,8 +2692,8 @@ total blocks        39
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 8753
-/tmp/tmp9dtQ7D/p/server 8753 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 6811
+/tmp/tmpYSJVRK/p/server 6811 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -1566,12 +2843,11 @@ test persist FAILED
  (restart server after creating a file)
  Timelimit (30.0s) exceeded
 
-test bigdir FAILED
+test bigdir PASSED
  (create a directory with 126 files)
- MFS_Creat returned failure inum=1 type=1 name='30'
 
 test deep PASSED
  (create many deeply nested directories)
 
-Passed 17 of 19 tests.
-Overall 17 of 19
+Passed 18 of 19 tests.
+Overall 18 of 19

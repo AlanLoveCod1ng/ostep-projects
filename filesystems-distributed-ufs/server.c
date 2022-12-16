@@ -247,9 +247,7 @@ int mfs_write(message_t  *mptr, void *image, int innercall){
 		if(inode->size%UFS_BLOCK_SIZE != 0){
 			old_blocks ++;
 		}
-		if(inode->size == 0){
-			old_blocks = 1;
-		}
+
 		int needed_blocks = new_blocks - old_blocks;
 		int inode_dir_index = old_blocks;
 
@@ -359,30 +357,37 @@ int mfs_create(message_t  *mptr, char *image){
 
 	int data_blocks = s->data_region_len;
 	void * dataBitMap = (void *)((long)image + s->data_bitmap_addr * UFS_BLOCK_SIZE );
-	int assignedDataBlock = -1;
-	for (int i = 0; i < data_blocks; i++)
+	if (mptr->file_type == MFS_DIRECTORY)
 	{
-		void* dataMap = (void *)((i/(UFS_BLOCK_SIZE*8))*UFS_BLOCK_SIZE + (long)dataBitMap);
-		int currentNum = i%(UFS_BLOCK_SIZE*8);
-		bit = get_bit(dataMap, currentNum);
-		if (bit == 0)
+		int assignedDataBlock = -1;
+		for (int i = 0; i < data_blocks; i++)
 		{
-			assignedDataBlock = i;
-			set_bit(dataMap,currentNum);
-			break;
+			void* dataMap = (void *)((i/(UFS_BLOCK_SIZE*8))*UFS_BLOCK_SIZE + (long)dataBitMap);
+			int currentNum = i%(UFS_BLOCK_SIZE*8);
+			bit = get_bit(dataMap, currentNum);
+			if (bit == 0)
+			{
+				assignedDataBlock = i;
+				set_bit(dataMap,currentNum);
+				break;
+			}
+			else {
+				continue;
+			}
 		}
-		else {
-			continue;
+		
+		// no available data block
+		if(assignedDataBlock == -1){
+			return -1;
 		}
+		childInode->direct[0] = s->data_region_addr+assignedDataBlock;
 	}
-	// no available data block
-	if(assignedDataBlock == -1){
-		return -1;
+	else{
+		childInode->direct[0] = UPPER_BOUND;
 	}
-
 	childInode->type = mptr->file_type;
 	childInode->size = 0;
-	childInode->direct[0] = s->data_region_addr+assignedDataBlock;
+	
 	for (int i = 1; i < DIRECT_PTRS; i++)
 	{
 		childInode->direct[i] = UPPER_BOUND;

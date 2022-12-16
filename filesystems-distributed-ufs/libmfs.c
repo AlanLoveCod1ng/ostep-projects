@@ -2,7 +2,7 @@
 #include "mfs.h"
 #include "udp.h"
 #include "message.h"
-
+#include <sys/time.h>
 
 int sd, rc;
 struct sockaddr_in addrSnd, addrRcv; // Create client socket for sending, and receiving
@@ -91,7 +91,7 @@ int MFS_Stat(int inum, MFS_Stat_t *m){
     m->size = msg.r_mfs_stat.size;
     m->type = msg.r_mfs_stat.type;
 
-    return 0;
+    return msg.rc;
 }
 
 
@@ -146,7 +146,7 @@ int MFS_Read(int inum, char *buffer, int offset, int nbytes){
         printf("client:: failed to read\n");
         return -1;
     }
-    strcpy(buffer, msg.r_buffer);
+    memcpy(buffer, msg.r_buffer, nbytes);
     return msg.rc;
 }
 
@@ -200,7 +200,7 @@ int MFS_Unlink(int pinum, char *name){
         printf("client:: failed to write\n");
         return -1;
     }
-    return 0;
+    return msg.rc;
 }
 
 
@@ -220,6 +220,6 @@ int MFS_Shutdown(){
         printf("client:: failed to write\n");
         return -1;
     }
-
+    rc = UDP_Close(sd);
     return 0;
 }

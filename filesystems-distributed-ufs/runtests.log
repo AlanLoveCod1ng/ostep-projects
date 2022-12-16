@@ -1,0 +1,845 @@
+('starting', 'build')
+
+**********************************************************************
+
+Test build
+build project using make
+
+**********************************************************************
+Trying to build project using make
+make
+gcc -fPIC -g -c -Wall libmfs.c
+gcc -shared -Wl,-soname,libmfs.so -o libmfs.so libmfs.o udp.c -lc
+export LD_LIBRARY_PATH=.
+gcc -Wall  -g -c client.c
+gcc client.o  -g -o client udp.c -L. -lmfs
+gcc -Wall  -g -c server.c
+gcc server.o  -g -o server udp.c -L. -lmfs
+gcc -Wall -Werror -g -c clientmfs.c
+gcc clientmfs.o  -g -o clientmfs udp.c -L. -lmfs
+gcc -Wall -g -o mkfs mkfs.c
+
+
+test build PASSED
+ (build project using make)
+
+('starting', 'shutdown')
+
+**********************************************************************
+
+Test shutdown
+init server and client then call shutdown
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 5194
+/tmp/tmp71S2DD/p/server 5194 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test shutdown PASSED
+ (init server and client then call shutdown)
+
+('starting', 'creat')
+
+**********************************************************************
+
+Test creat
+creat a file and check with lookup
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 6999
+/tmp/tmp71S2DD/p/server 6999 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+test
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test creat PASSED
+ (creat a file and check with lookup)
+
+('starting', 'write')
+
+**********************************************************************
+
+Test write
+write then read one block
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 6699
+/tmp/tmp71S2DD/p/server 6699 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+test
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 1
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+('START BLOCK 1\x00\x00\x00\x00\x00\x00\x00', '\x00\x00\x00\x00\x00\x00\x00\x00\x00END BLOCK 1')
+('START BLOCK 1\x00\x00\x00\x00\x00\x00\x00', '\x00\x00\x00\x00\x00\x00\x00\x00\x00END BLOCK 1')
+
+
+test write PASSED
+ (write then read one block)
+
+('starting', 'stat')
+
+**********************************************************************
+
+Test stat
+stat a regular file
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 8732
+/tmp/tmp71S2DD/p/server 8732 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Failure: MFS_Stat returned failure inum=0
+
+
+test stat FAILED
+ (stat a regular file)
+ MFS_Stat returned failure inum=0
+
+('starting', 'overwrite')
+
+**********************************************************************
+
+Test overwrite
+overwrite a block
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 5196
+/tmp/tmp71S2DD/p/server 5196 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+test
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 1
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 2
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test overwrite PASSED
+ (overwrite a block)
+
+('starting', 'maxfile')
+
+**********************************************************************
+
+Test maxfile
+write largest possible file
+
+**********************************************************************
+total blocks        39
+  inodes            128 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 6354
+/tmp/tmp71S2DD/p/server 6354 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+
+
+test maxfile FAILED
+ (write largest possible file)
+ Timelimit (10.0s) exceeded
+
+('starting', 'maxfile2')
+
+**********************************************************************
+
+Test maxfile2
+write more blocks than possible
+
+**********************************************************************
+client:: failed to read
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 5980
+/tmp/tmp71S2DD/p/server 5980 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+
+
+test maxfile2 FAILED
+ (write more blocks than possible)
+ Timelimit (10.0s) exceeded
+
+('starting', 'dir1')
+
+**********************************************************************
+
+Test dir1
+check root for dot entries
+
+**********************************************************************
+31
+client:: failed to read
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 9090
+/tmp/tmp71S2DD/p/server 9090 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test dir1 PASSED
+ (check root for dot entries)
+
+('starting', 'dir2')
+
+**********************************************************************
+
+Test dir2
+create a new directory and check it
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 9366
+/tmp/tmp71S2DD/p/server 9366 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+.
+Here2
+Here3
+1Here1
+testdir
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test dir2 PASSED
+ (create a new directory and check it)
+
+('starting', 'baddir')
+
+**********************************************************************
+
+Test baddir
+try to create a file with a file parent inode
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 7116
+/tmp/tmp71S2DD/p/server 7116 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+testdir
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test baddir PASSED
+ (try to create a file with a file parent inode)
+
+('starting', 'baddir2')
+
+**********************************************************************
+
+Test baddir2
+try to lookup a file with a file parent inode
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 6160
+/tmp/tmp71S2DD/p/server 6160 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+testdir
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test baddir2 PASSED
+ (try to lookup a file with a file parent inode)
+
+('starting', 'unlink')
+
+**********************************************************************
+
+Test unlink
+unlink a file
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 5998
+/tmp/tmp71S2DD/p/server 5998 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+test
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(7)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test unlink PASSED
+ (unlink a file)
+
+('starting', 'unlink2')
+
+**********************************************************************
+
+Test unlink2
+unlink a directory
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 9539
+/tmp/tmp71S2DD/p/server 9539 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+.
+Here2
+Here3
+1Here1
+test
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(7)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test unlink2 PASSED
+ (unlink a directory)
+
+('starting', 'empty')
+
+**********************************************************************
+
+Test empty
+unlink a non-empty directory
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 5221
+/tmp/tmp71S2DD/p/server 5221 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+.
+Here2
+Here3
+1Here1
+testdir
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+testfile
+Here2
+Here3
+2server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(7)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(7)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(7)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test empty PASSED
+ (unlink a non-empty directory)
+
+('starting', 'name')
+
+**********************************************************************
+
+Test name
+name too long
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 5102
+/tmp/tmp71S2DD/p/server 5102 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test name PASSED
+ (name too long)
+
+('starting', 'persist')
+
+**********************************************************************
+
+Test persist
+restart server after creating a file
+
+**********************************************************************
+total blocks        36
+  inodes            32 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 9507
+/tmp/tmp71S2DD/p/server 9507 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+test
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 1
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test persist FAILED
+ (restart server after creating a file)
+ Timelimit (30.0s) exceeded
+
+('starting', 'bigdir')
+
+**********************************************************************
+
+Test bigdir
+create a directory with 126 files
+
+**********************************************************************
+client:: failed to read
+total blocks        39
+  inodes            128 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 9796
+/tmp/tmp71S2DD/p/server 9796 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Failure: MFS_Creat returned failure inum=1 type=1 name='30'
+
+
+test bigdir FAILED
+ (create a directory with 126 files)
+ MFS_Creat returned failure inum=1 type=1 name='30'
+
+('starting', 'deep')
+
+**********************************************************************
+
+Test deep
+create many deeply nested directories
+
+**********************************************************************
+total blocks        39
+  inodes            128 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+Starting server on port 5978
+/tmp/tmp71S2DD/p/server 5978 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+.
+Here2
+Here3
+1Here1
+testdir
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+.
+Here2
+Here3
+2Here1
+0
+Here2
+Here3
+2server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+.
+Here2
+Here3
+3Here1
+1
+Here2
+Here3
+3server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+.
+Here2
+Here3
+4Here1
+2
+Here2
+Here3
+4server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+.
+Here2
+Here3
+5Here1
+3
+Here2
+Here3
+5server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+
+
+test deep PASSED
+ (create many deeply nested directories)
+
+**********************************************************************
+Summary:
+test build PASSED
+ (build project using make)
+
+test shutdown PASSED
+ (init server and client then call shutdown)
+
+test creat PASSED
+ (creat a file and check with lookup)
+
+test write PASSED
+ (write then read one block)
+
+test stat FAILED
+ (stat a regular file)
+ MFS_Stat returned failure inum=0
+
+test overwrite PASSED
+ (overwrite a block)
+
+test maxfile FAILED
+ (write largest possible file)
+ Timelimit (10.0s) exceeded
+
+test maxfile2 FAILED
+ (write more blocks than possible)
+ Timelimit (10.0s) exceeded
+
+test dir1 PASSED
+ (check root for dot entries)
+
+test dir2 PASSED
+ (create a new directory and check it)
+
+test baddir PASSED
+ (try to create a file with a file parent inode)
+
+test baddir2 PASSED
+ (try to lookup a file with a file parent inode)
+
+test unlink PASSED
+ (unlink a file)
+
+test unlink2 PASSED
+ (unlink a directory)
+
+test empty PASSED
+ (unlink a non-empty directory)
+
+test name PASSED
+ (name too long)
+
+test persist FAILED
+ (restart server after creating a file)
+ Timelimit (30.0s) exceeded
+
+test bigdir FAILED
+ (create a directory with 126 files)
+ MFS_Creat returned failure inum=1 type=1 name='30'
+
+test deep PASSED
+ (create many deeply nested directories)
+
+Passed 14 of 19 tests.
+Overall 14 of 19

@@ -132,6 +132,9 @@ int mfs_read(message_t  *mptr, char *image){
 			int start_offset_block = mptr->s_offset%UFS_BLOCK_SIZE;
 			int end_index_block = (mptr->s_offset+mptr->s_nbytes)/UFS_BLOCK_SIZE;
 			int end_offset_block = (mptr->s_offset+mptr->s_nbytes)%UFS_BLOCK_SIZE;
+			if(end_offset_block == 0){
+				end_index_block -= 1;
+			}
 			if (start_index_block == end_index_block)
 			{
 				void *start = (void *)((long)image + (long)start_offset_block+ inode->direct[start_index_block]*UFS_BLOCK_SIZE);
@@ -158,13 +161,16 @@ int mfs_read(message_t  *mptr, char *image){
 		int start_offset_block = mptr->s_offset%UFS_BLOCK_SIZE;
 		int end_index_block = (mptr->s_offset+mptr->s_nbytes)/UFS_BLOCK_SIZE;
 		int end_offset_block = (mptr->s_offset+mptr->s_nbytes)%UFS_BLOCK_SIZE;
+		if(end_offset_block == 0){
+			end_index_block -= 1;
+		}
 		if (start_index_block == end_index_block)
 		{
-			void *start = (void *)((long)image + (long)start_offset_block+ inode->direct[start_index_block]*UFS_BLOCK_SIZE);
+			void *start = (void *)((long)image + ((long)start_offset_block+ inode->direct[start_index_block])*UFS_BLOCK_SIZE);
 			memcpy(mptr->r_buffer, start, mptr->s_nbytes);
 		}
 		else{
-			void *start1 = (void *)((long)image + (long)start_offset_block+ inode->direct[start_index_block]*UFS_BLOCK_SIZE);
+			void *start1 = (void *)((long)image + ((long)start_offset_block+ inode->direct[start_index_block])*UFS_BLOCK_SIZE);
 			memcpy(mptr->r_buffer, start1, UFS_BLOCK_SIZE - start_offset_block);
 			void *start2 = (void *)((long)image + inode->direct[end_index_block]*UFS_BLOCK_SIZE);
 			memcpy(&mptr->r_buffer[UFS_BLOCK_SIZE - start_offset_block], start2, end_offset_block);
@@ -184,13 +190,14 @@ int mfs_write(message_t  *mptr, void *image, int innercall){
     int inodeBitBlock = mptr->s_inum/(UFS_BLOCK_SIZE*8);
 	int inodeBitOffset= mptr->s_inum%(UFS_BLOCK_SIZE*8);
     void * inodeBitMap = (void *)((long)image + (s->inode_bitmap_addr+inodeBitBlock) * UFS_BLOCK_SIZE );
-
+	printf("Here1\n");
+	printf("%s\n", mptr->r_buffer);
     unsigned int bit = get_bit(inodeBitMap, inodeBitOffset);
     if (bit == 0)
 	{
 		return -1;
 	}
-	
+	printf("Here2\n");
     int inodeRegionBlock = mptr->s_inum*sizeof(inode_t)/UFS_BLOCK_SIZE;
 	int inodeRegionOffset = mptr->s_inum*sizeof(inode_t)%UFS_BLOCK_SIZE;
     inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset);
@@ -199,12 +206,16 @@ int mfs_write(message_t  *mptr, void *image, int innercall){
 	{
 		return -1;
 	}
-	
-	int end = mptr->s_offset + mptr->s_nbytes -1;
+	printf("Here3\n");
+
+	int end = mptr->s_offset + mptr->s_nbytes;
 	if (end > inode->size)
 	{
 		int new_size = end;
-		int new_blocks = new_size/UFS_BLOCK_SIZE + 1;
+		int new_blocks = new_size/UFS_BLOCK_SIZE;
+		if(new_size % UFS_BLOCK_SIZE != 0){
+			new_blocks += 1;
+		}
 		if (new_blocks > DIRECT_PTRS)
 		{
 			return -1;
@@ -237,12 +248,17 @@ int mfs_write(message_t  *mptr, void *image, int innercall){
 	int start_offset_block = mptr->s_offset%UFS_BLOCK_SIZE;
 	int end_index_block = end/UFS_BLOCK_SIZE;
 	int end_offset_block = end%UFS_BLOCK_SIZE;
+	if(end_offset_block == 0){
+		end_index_block -= 1;
+	}
 	if (start_index_block == end_index_block)
 	{
 		void *start = (void *)((long)image + (long)start_offset_block+ inode->direct[start_index_block]*UFS_BLOCK_SIZE);
 		MFS_DirEnt_t *e = (MFS_DirEnt_t*)mptr->r_buffer;
 		printf("%d",e->inum);
 		memcpy(start, (void *)mptr->r_buffer, mptr->s_nbytes);
+		message_t temp;
+		memcpy((void *)temp.r_buffer, start, 4096);
 	}
 	else{
 		void *start1 = (void *)((long)image + (long)start_offset_block+ inode->direct[start_index_block]*UFS_BLOCK_SIZE);
@@ -250,7 +266,6 @@ int mfs_write(message_t  *mptr, void *image, int innercall){
 		void *start2 = (void *)((long)image + inode->direct[end_index_block]*UFS_BLOCK_SIZE);
 		memcpy(start2, &mptr->r_buffer[UFS_BLOCK_SIZE - start_offset_block], end_offset_block);
 	}
-
 	return 0;
 	
 }
@@ -363,7 +378,7 @@ int mfs_create(message_t  *mptr, char *image){
 		temp_m.mtype = MFS_WRITE;
 		temp_m.s_inum = assignedInode;
 		temp_m.s_offset = 0;
-		temp_m.s_nbytes = 2*sizeof(dir_ent_t);
+		temp_m.s_nbytes = UFS_BLOCK_SIZE;
 		mfs_write(&temp_m, image, 1);
 		childInode->size = 2*sizeof(dir_ent_t);
 	}
@@ -448,39 +463,52 @@ int mfs_unlink(message_t  *mptr, char *image){
 		return 0;
 	}
 	inodeRegionBlock = childInodeNumber*sizeof(inode_t)/UFS_BLOCK_SIZE;
-	int inodeRegionOffset = childInodeNumber*sizeof(inode_t)%UFS_BLOCK_SIZE;
+	inodeRegionOffset = childInodeNumber*sizeof(inode_t)%UFS_BLOCK_SIZE;
 	inode_t *childInode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset);
 	
+	// check if it's a emptry directory
 	if(childInode->type == MFS_DIRECTORY){
 		void *block_start = (void *)((long)image + childInode->direct[0]*UFS_BLOCK_SIZE);
 		int num_det = UFS_BLOCK_SIZE/sizeof(dir_ent_t);
 		for (int j = 0; j < num_det; j++)
 		{
 			dir_ent_t *det = (dir_ent_t *)((long)block_start + j*sizeof(dir_ent_t));
-			if (det->inum == -1)
+			if (j == 2 && det->inum != -1)
 			{
-				// not empty
-				if(j > 2){
-					return -1;
-				}
+				return -1;
+			}
+			else if(j == 2 && det->inum == -1){
+				break;
+			}
+			else
+			{
 				continue;
 			}
+			
 		}
 	}
 
-	int *dir = childInode->direct;
+	unsigned int *dir = childInode->direct;
 	
+	// clear data bitmap bit
 	for (int i = 0; i < DIRECT_PTRS; i++)
 	{
 		if (dir[i] == UPPER_BOUND)
 		{
 			continue;
 		}
-		void * dataMap = (void *)((dir[i]-s->data_region_addr)/(UFS_BLOCK_SIZE*8)*UFS_BLOCK_SIZE+s->data_bitmap_addr*UFS_BLOCK_SIZE);
+		void * dataMap = (void *)((long)(dir[i]-s->data_region_addr)/(UFS_BLOCK_SIZE*8)*UFS_BLOCK_SIZE+ (long)s->data_bitmap_addr*UFS_BLOCK_SIZE + (long) image);
 		int currentDataBit = (dir[i]-s->data_region_addr)%(UFS_BLOCK_SIZE*8);
 		clear_bit(dataMap, currentDataBit);
 	}
 	
+	// clear inode bitmap bit
+	inodeBitBlock = childInodeNumber/(UFS_BLOCK_SIZE*8);
+	inodeBitOffset= childInodeNumber%(UFS_BLOCK_SIZE*8);
+    inodeBitMap = (void *)((long)image + (s->inode_bitmap_addr+inodeBitBlock) * UFS_BLOCK_SIZE );
+    clear_bit(inodeBitMap, inodeBitOffset);
+
+	// delete entry from parent diretory's data region 
 	for (int i = 0; i < DIRECT_PTRS; i++)
 	{
 		if (inode->direct[i] == UPPER_BOUND)
@@ -489,6 +517,7 @@ int mfs_unlink(message_t  *mptr, char *image){
 		}
 		void *block_start = (void *)((long)image + inode->direct[i]*UFS_BLOCK_SIZE);
 		int num_det = UFS_BLOCK_SIZE/sizeof(dir_ent_t);
+		int found = 0;
 		for (int j = 0; j < num_det; j++)
 		{
 			dir_ent_t *det = (dir_ent_t *)((long)block_start + j*sizeof(dir_ent_t));
@@ -503,10 +532,17 @@ int mfs_unlink(message_t  *mptr, char *image){
 				empty.inum = -1;
 				strcpy(empty.name, "");
 				memcpy((void *)det,&empty, sizeof(dir_ent_t));
+				found = 1;
+				break;
 			}
 		}
+		if (found)
+		{
+			break;
+		}
+		
 	}
-
+	
 	return 0;
 	
 }
@@ -559,6 +595,7 @@ int main(int argc, char *argv[]) {
 				m.rc = mfs_stat(&m, image);
 				break;
 			case MFS_WRITE:
+				printf("Here4\n");
 				m.rc = mfs_write(&m, image, 0);
 				break;
 			case MFS_READ:
@@ -568,11 +605,14 @@ int main(int argc, char *argv[]) {
 				m.rc = mfs_create(&m, image);
 				break;
 			case MFS_UNLINK:
-
+				m.rc = mfs_unlink(&m, image);
 				break;
 			case MFS_SHUTDOWN:
 				fsync(fd);
 				close(fd);
+				rc = UDP_Write(sd, &addr, (char *) &m, sizeof(message_t));
+				rc = UDP_Close(sd);
+				exit(0);
 				break;
 			default:
 				break;

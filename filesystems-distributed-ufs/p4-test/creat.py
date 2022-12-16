@@ -6,8 +6,9 @@ class CreatTest(MfsTest):
    timeout = 10
 
    def run(self):
+      image = self.create_image()
       self.loadlib()
-      self.start_server()
+      self.start_server(image)
       self.mfs_init("localhost", self.port)
       self.creat(0, MFS_REGULAR_FILE, "test")
       inum = self.lookup(0, "test")
@@ -16,3 +17,4 @@ class CreatTest(MfsTest):
       self.done()
 
 test_list = [CreatTest]
+

@@ -98,7 +98,7 @@ int mfs_stat(message_t *mptr, void *image){
     inode_t *inode = (inode_t *)((long)image + (s->inode_region_addr+inodeRegionBlock) * UFS_BLOCK_SIZE + inodeRegionOffset);
 	mptr->r_mfs_stat.type = inode->type;
 	mptr->r_mfs_stat.size = inode->size;
-    return -1;
+    return 0;
 }
 
 int mfs_read(message_t  *mptr, char *image){
@@ -122,7 +122,14 @@ int mfs_read(message_t  *mptr, char *image){
 	{
 		return -1;
 	}
-	
+	int blocks = (mptr->s_offset+mptr->s_nbytes)/UFS_BLOCK_SIZE;
+	if((mptr->s_offset+mptr->s_nbytes) % UFS_BLOCK_SIZE != 0){
+		blocks += 1;
+	}
+	if ( blocks > DIRECT_PTRS)
+	{
+		return -1;
+	}
 	if (inode->type == MFS_DIRECTORY)
 	{
 		// check if read whole entry and if offset align the entry
@@ -134,6 +141,13 @@ int mfs_read(message_t  *mptr, char *image){
 			int end_offset_block = (mptr->s_offset+mptr->s_nbytes)%UFS_BLOCK_SIZE;
 			if(end_offset_block == 0){
 				end_index_block -= 1;
+			}
+			if (end_index_block > DIRECT_PTRS)
+			{
+				return -1;
+			}
+			if(inode->direct[start_index_block]==UPPER_BOUND || inode->direct[end_index_block] == UPPER_BOUND){
+				return -1;
 			}
 			if (start_index_block == end_index_block)
 			{
@@ -163,6 +177,13 @@ int mfs_read(message_t  *mptr, char *image){
 		int end_offset_block = (mptr->s_offset+mptr->s_nbytes)%UFS_BLOCK_SIZE;
 		if(end_offset_block == 0){
 			end_index_block -= 1;
+		}
+		if (end_index_block > DIRECT_PTRS)
+		{
+			return -1;
+		}
+		if(inode->direct[start_index_block]==UPPER_BOUND || inode->direct[end_index_block] == UPPER_BOUND){
+			return -1;
 		}
 		if (start_index_block == end_index_block)
 		{
@@ -212,6 +233,7 @@ int mfs_write(message_t  *mptr, void *image, int innercall){
 	if (end > inode->size)
 	{
 		int new_size = end;
+		
 		int new_blocks = new_size/UFS_BLOCK_SIZE;
 		if(new_size % UFS_BLOCK_SIZE != 0){
 			new_blocks += 1;
@@ -221,7 +243,13 @@ int mfs_write(message_t  *mptr, void *image, int innercall){
 			return -1;
 		}
 		
-		int old_blocks = inode->size/UFS_BLOCK_SIZE + 1;
+		int old_blocks = inode->size/UFS_BLOCK_SIZE;
+		if(inode->size%UFS_BLOCK_SIZE != 0){
+			old_blocks ++;
+		}
+		if(inode->size == 0){
+			old_blocks = 1;
+		}
 		int needed_blocks = new_blocks - old_blocks;
 		int inode_dir_index = old_blocks;
 
@@ -236,12 +264,16 @@ int mfs_write(message_t  *mptr, void *image, int innercall){
 			{
 				inode->direct[inode_dir_index] = s->data_region_addr + i;
 				set_bit(dataMap,currentNum);
+				needed_blocks --;
 			}
 			else {
 				continue;
 			}
 		}
-		
+		if(needed_blocks != 0){
+			return -1;
+		}
+		inode->size = new_size;
 	}
 
 	int start_index_block = mptr->s_offset/UFS_BLOCK_SIZE;
@@ -358,7 +390,7 @@ int mfs_create(message_t  *mptr, char *image){
 	// check if the end position is out of file
 	if (childInode->type ==MFS_REGULAR_FILE)
 	{
-		
+
 	}
 	else if(childInode->type ==MFS_DIRECTORY){
 		message_t temp_m;

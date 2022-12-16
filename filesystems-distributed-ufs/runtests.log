@@ -10,7 +10,6 @@ Trying to build project using make
 make
 gcc -fPIC -g -c -Wall libmfs.c
 gcc -shared -Wl,-soname,libmfs.so -o libmfs.so libmfs.o udp.c -lc
-export LD_LIBRARY_PATH=.
 gcc -Wall  -g -c client.c
 gcc client.o  -g -o client udp.c -L. -lmfs
 gcc -Wall  -g -c server.c
@@ -18,6 +17,14 @@ gcc server.o  -g -o server udp.c -L. -lmfs
 gcc -Wall -Werror -g -c clientmfs.c
 gcc clientmfs.o  -g -o clientmfs udp.c -L. -lmfs
 gcc -Wall -g -o mkfs mkfs.c
+./mkfs -f test.img -d 32 -i 128
+total blocks        39
+  inodes            128 [size of each: 128]
+  data blocks       32
+layout details
+  inode bitmap address/len 1 [1]
+  data bitmap address/len  2 [1]
+export LD_LIBRARY_PATH=.
 
 
 test build PASSED
@@ -37,8 +44,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5194
-/tmp/tmp71S2DD/p/server 5194 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 6538
+/tmp/tmp9dtQ7D/p/server 6538 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -63,8 +70,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 6999
-/tmp/tmp71S2DD/p/server 6999 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 7093
+/tmp/tmp9dtQ7D/p/server 7093 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -99,8 +106,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 6699
-/tmp/tmp71S2DD/p/server 6699 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 5108
+/tmp/tmp9dtQ7D/p/server 5108 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -148,14 +155,44 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 8732
-/tmp/tmp71S2DD/p/server 8732 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
-Failure: MFS_Stat returned failure inum=0
+Starting server on port 6458
+/tmp/tmp9dtQ7D/p/server 6458 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+test
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(3)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(3)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 1
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(3)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
 
 
-test stat FAILED
+test stat PASSED
  (stat a regular file)
- MFS_Stat returned failure inum=0
 
 ('starting', 'overwrite')
 
@@ -171,8 +208,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5196
-/tmp/tmp71S2DD/p/server 5196 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 5850
+/tmp/tmp9dtQ7D/p/server 5850 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -229,13 +266,357 @@ total blocks        39
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 6354
-/tmp/tmp71S2DD/p/server 6354 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 8171
+/tmp/tmp9dtQ7D/p/server 8171 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+test
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 0
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 1
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 2
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 3
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 4
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 5
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 6
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 7
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 8
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 9
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 10
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 11
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 12
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 13
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 14
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 15
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 16
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 17
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 18
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 19
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 20
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 21
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 22
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 23
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 24
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 25
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 26
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 27
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 28
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 29
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
 
 
-test maxfile FAILED
+test maxfile PASSED
  (write largest possible file)
- Timelimit (10.0s) exceeded
 
 ('starting', 'maxfile2')
 
@@ -245,20 +626,376 @@ Test maxfile2
 write more blocks than possible
 
 **********************************************************************
-client:: failed to read
 total blocks        36
   inodes            32 [size of each: 128]
   data blocks       32
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5980
-/tmp/tmp71S2DD/p/server 5980 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 9319
+/tmp/tmp9dtQ7D/p/server 9319 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+server:: waiting...
+server:: read message [size:4156 contents:(1)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(6)]
+Here1
+test
+Here2
+Here3
+1server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(2)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 0
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 1
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 2
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 3
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 4
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 5
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 6
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 7
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 8
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 9
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 10
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 11
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 12
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 13
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 14
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 15
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 16
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 17
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 18
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 19
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 20
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 21
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 22
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 23
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 24
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 25
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 26
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 27
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 28
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 29
+Here2
+Here3
+0server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(4)]
+Here4
+Here1
+START BLOCK 30
+Here2
+Here3
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(5)]
+server:: reply
+server:: waiting...
+server:: read message [size:4156 contents:(8)]
+31
+write more than need
 
 
-test maxfile2 FAILED
+test maxfile2 PASSED
  (write more blocks than possible)
- Timelimit (10.0s) exceeded
 
 ('starting', 'dir1')
 
@@ -268,16 +1005,14 @@ Test dir1
 check root for dot entries
 
 **********************************************************************
-31
-client:: failed to read
 total blocks        36
   inodes            32 [size of each: 128]
   data blocks       32
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9090
-/tmp/tmp71S2DD/p/server 9090 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 5375
+/tmp/tmp9dtQ7D/p/server 5375 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -308,8 +1043,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9366
-/tmp/tmp71S2DD/p/server 9366 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 9812
+/tmp/tmp9dtQ7D/p/server 9812 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -354,8 +1089,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 7116
-/tmp/tmp71S2DD/p/server 7116 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 9444
+/tmp/tmp9dtQ7D/p/server 9444 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -393,8 +1128,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 6160
-/tmp/tmp71S2DD/p/server 6160 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 5966
+/tmp/tmp9dtQ7D/p/server 5966 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -432,8 +1167,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5998
-/tmp/tmp71S2DD/p/server 5998 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 5001
+/tmp/tmp9dtQ7D/p/server 5001 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -474,8 +1209,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9539
-/tmp/tmp71S2DD/p/server 9539 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 6026
+/tmp/tmp9dtQ7D/p/server 6026 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -520,8 +1255,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5221
-/tmp/tmp71S2DD/p/server 5221 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 7646
+/tmp/tmp9dtQ7D/p/server 7646 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -579,8 +1314,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5102
-/tmp/tmp71S2DD/p/server 5102 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 5994
+/tmp/tmp9dtQ7D/p/server 5994 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -605,8 +1340,8 @@ total blocks        36
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9507
-/tmp/tmp71S2DD/p/server 9507 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 9526
+/tmp/tmp9dtQ7D/p/server 9526 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -657,8 +1392,8 @@ total blocks        39
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 9796
-/tmp/tmp71S2DD/p/server 9796 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 9730
+/tmp/tmp9dtQ7D/p/server 9730 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 Failure: MFS_Creat returned failure inum=1 type=1 name='30'
 
 
@@ -680,8 +1415,8 @@ total blocks        39
 layout details
   inode bitmap address/len 1 [1]
   data bitmap address/len  2 [1]
-Starting server on port 5978
-/tmp/tmp71S2DD/p/server 5978 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
+Starting server on port 8753
+/tmp/tmp9dtQ7D/p/server 8753 /home/bingxu/private/cs537/ostep-projects/filesystems-distributed-ufs/test.img
 server:: waiting...
 server:: read message [size:4156 contents:(1)]
 server:: reply
@@ -791,20 +1526,17 @@ test creat PASSED
 test write PASSED
  (write then read one block)
 
-test stat FAILED
+test stat PASSED
  (stat a regular file)
- MFS_Stat returned failure inum=0
 
 test overwrite PASSED
  (overwrite a block)
 
-test maxfile FAILED
+test maxfile PASSED
  (write largest possible file)
- Timelimit (10.0s) exceeded
 
-test maxfile2 FAILED
+test maxfile2 PASSED
  (write more blocks than possible)
- Timelimit (10.0s) exceeded
 
 test dir1 PASSED
  (check root for dot entries)
@@ -841,5 +1573,5 @@ test bigdir FAILED
 test deep PASSED
  (create many deeply nested directories)
 
-Passed 14 of 19 tests.
-Overall 14 of 19
+Passed 17 of 19 tests.
+Overall 17 of 19

@@ -88,92 +88,13 @@ class Dir(File):
       return "\n".join([self.fullpath()] +
             [str(child) for child in list(self.children.values())])
 
-#def randomFile(rand):
-#  f = RegularFile(
-
-class ComplexTest(MfsTest):
-   name = "complex"
-   description = "a long sequence of creats and writes followed by a check"
-   timeout = 30
-   def run(self):
-      self.loadlib()
-      self.start_server()
-      self.mfs_init("localhost", self.port)
-
-      # bulid a filesystem
-      fs = Dir.root()
-      for i in range(3):
-         a = fs.add_child(Dir(str(i)))
-         a.add_child(RegularFile("file1", [i]))
-         a.add_child(RegularFile("file2", [i]))
-         for j in range(3):
-            b = a.add_child(Dir(str(j)))
-            b.add_child(RegularFile("file1", [i + j]))
-            b.add_child(RegularFile("file2", [i, None, j]))
-      self.log("Filesyste to be written:\n")
-      self.log(str(fs) + "\n")
-
-      # run commands to creat dirs and write to files
-      q = deque([fs])
-      while len(q) > 0:
-         q.extend(q.popleft().do(self))
-
-      # check full filesystem including all file sizes and data
-      fs.check(self)
-
-      self.shutdown()
-      self.server.wait()
-      self.done()
-
-
-class Complex2Test(MfsTest):
-   name = "complex2"
-   description = "a long sequence of creats and writes followed by a check"
-   timeout = 30
-   def run(self):
-      self.loadlib()
-      self.start_server()
-      self.mfs_init("localhost", self.port)
-
-      # bulid a filesystem
-      fs = Dir.root()
-      for i in range(4):
-         a = fs.add_child(Dir(str(i)))
-         a.add_child(RegularFile("file1", [i]))
-         a.add_child(RegularFile("file2", [2*i]))
-         for j in range(3):
-            b = a.add_child(Dir(str(j)))
-            b.add_child(RegularFile("file1", [i + j]))
-            b.add_child(RegularFile("file2", [i, None, j]))
-            for k in range(2):
-               c = b.add_child(Dir(str(k)))
-               c.add_child(RegularFile("file1", [i+j+k]))
-               c.add_child(RegularFile("file2", [i, None, j, None, k]))
-      self.log("Filesyste to be written:\n")
-      self.log(str(fs) + "\n")
-
-      # run commands to creat dirs and write to files
-      q = deque([fs])
-      while len(q) > 0:
-         q.extend(q.popleft().do(self))
-
-      # check full filesystem including all file sizes and data
-      fs.check(self)
-
-      self.shutdown()
-      self.server.wait()
-      self.done()
 
 class PersistTest(MfsTest):
    name = "persist"
    description = "restart server after creating a file"
    timeout = 30
    def run(self):
-      os.system("./mkfs -f test.img")    
-      image = "test.img"
-      # if os.path.exists(self.project_path + "/" + image):
-         # os.remove(self.project_path + "/" + image)
-
+      image = self.create_image()
       self.loadlib()
       self.start_server(image)
       self.mfs_init("localhost", self.port)
@@ -189,7 +110,7 @@ class PersistTest(MfsTest):
       self.shutdown()
       self.server.wait()
 
-      #self.mfs_init("localhost", self.port)
+      self.mfs_init("localhost", self.port)
       self.start_server(image, port=self.port)
       if self.lookup(ROOT, "test") != inum:
          raise Failure("Wrong inum")
@@ -199,95 +120,16 @@ class PersistTest(MfsTest):
       self.server.wait()
       self.done()
 
-class Persist2Test(MfsTest):
-   name = "persist2"
-   description = "restart server after creating many dirs and files"
-   timeout = 30
-   def run(self):
-      os.system("./mkfs -f test.img") 
-      image = "test.img"
-      # if os.path.exists(self.project_path + "/" + image):
-         # os.remove(self.project_path + "/" + image)
-
-      self.loadlib()
-      self.start_server(image)
-      self.mfs_init("localhost", self.port)
-
-      # bulid a filesystem
-      fs = Dir.root()
-      for i in range(4):
-         a = fs.add_child(Dir(str(i)))
-         a.add_child(RegularFile("file1", [i]))
-         a.add_child(RegularFile("file2", [2*i]))
-         for j in range(3):
-            b = a.add_child(Dir(str(j)))
-            b.add_child(RegularFile("file1", [i + j]))
-            b.add_child(RegularFile("file2", [i, None, j]))
-            for k in range(2):
-               c = b.add_child(Dir(str(k)))
-               c.add_child(RegularFile("file1", [i+j+k]))
-               c.add_child(RegularFile("file2", [i, None, j, None, k]))
-      self.log("Filesyste to be written:\n")
-      self.log(str(fs) + "\n")
-
-      # run commands to creat dirs and write to files
-      q = deque([fs])
-      while len(q) > 0:
-         q.extend(q.popleft().do(self))
-
-      # check full filesystem including all file sizes and data
-      fs.check(self)
-
-      self.shutdown()
-      self.server.wait()
-
-      self.start_server(image, port=self.port)
-      #self.mfs_init("localhost", self.port)
-      fs.check(self)
-
-      self.shutdown()
-      self.server.wait()
-      self.done()
-
-
-class DropTest(MfsTest, BuildTest):
-   name = "drop"
-   description = "drop every other packet sent by client"
-   timeout = 90
-
-   def run(self):
-      self.loadlib()
-
-      os.rename(self.project_path + "/udp.c", self.project_path + "/udp.c.old")
-      shutil.copy(self.test_path + "/udp_drop.c", self.project_path + "/udp.c")
-      self.clean(self.targets + ["*.o"])
-      self.make(["server"])
-
-      self.start_server()
-      self.mfs_init("localhost", self.port)
-
-      self.creat(ROOT, MFS_REGULAR_FILE, "test")
-      inum = self.lookup(ROOT, "test")
-      self.write(inum, gen_block(1), 0, MFS_BLOCK_SIZE)
-      self.read_and_check(inum, 0, gen_block(1), MFS_BLOCK_SIZE)
-
-      # shutdown not reliable when dropping packets
-      self.server.kill()
-      self.done()
-
-   def after(self):
-      shutil.copy(self.test_path + "/udp_orig.c", self.project_path + "/udp.c")
-      self.clean(self.targets + ["*.o"])
-      self.make(["server"])
 
 class BigDirTest(MfsTest):
    name = "bigdir"
-   description = "create a directory with max number of files"
+   description = "create a directory with 126 files"
    timeout = 180
 
    def run(self):
+      image = self.create_image_max(32, 128)
       self.loadlib()
-      self.start_server()
+      self.start_server(image)
       self.mfs_init("localhost", self.port)
 
       self.creat(ROOT, MFS_DIRECTORY, "testdir")
@@ -295,34 +137,6 @@ class BigDirTest(MfsTest):
 
       for i in range(MAX_FILES_PER_DIR):
          self.creat(inum, MFS_REGULAR_FILE, str(i))
-
-      for i in range(MAX_FILES_PER_DIR):
-         self.lookup(inum, str(i))
-
-      self.shutdown()
-      self.server.wait()
-      self.done()
-
-class BigDir2Test(MfsTest):
-   name = "bigdir2"
-   description = "create a directory with more files than possible"
-   timeout = 180
-
-   def run(self):
-      self.loadlib()
-      self.start_server()
-      self.mfs_init("localhost", self.port)
-
-      self.creat(ROOT, MFS_DIRECTORY, "testdir")
-      inum = self.lookup(ROOT, "testdir")
-
-      for i in range(MAX_FILES_PER_DIR):
-         self.creat(inum, MFS_REGULAR_FILE, str(i))
-
-      i = MAX_FILES_PER_DIR
-      r = self.libmfs.MFS_Creat(inum, MFS_REGULAR_FILE, str(i))
-      if r != -1:
-         raise Failure("MFS_Creat should fail if directory is full")
 
       for i in range(MAX_FILES_PER_DIR):
          self.lookup(inum, str(i))
@@ -336,14 +150,16 @@ class DeepTest(MfsTest):
    description = "create many deeply nested directories"
    timeout = 60
 
-   depth = 200
+   depth = 4 
 
    def run(self):
+      image = self.create_image_max(32,128)
       self.loadlib()
-      self.start_server()
+      self.start_server(image)
       self.mfs_init("localhost", self.port)
 
       self.creat(ROOT, MFS_DIRECTORY, "testdir")
+      
       inum = self.lookup(ROOT, "testdir")
 
       for i in range(self.depth):
@@ -358,27 +174,5 @@ class DeepTest(MfsTest):
       self.server.wait()
       self.done()
 
-class FreeTest(MfsTest):
-   name = "free"
-   description = "check that inodes and direcrtory entries are freed"
-   timeout = 90
-
-   def run(self):
-      self.loadlib()
-      self.start_server()
-      self.mfs_init("localhost", self.port)
-
-      for i in range(MAX_INODES + 10):
-         self.creat(ROOT, MFS_REGULAR_FILE, str(i))
-         self.unlink(ROOT, str(i))
-      self.creat(ROOT, MFS_REGULAR_FILE, "test")
-      self.lookup(ROOT, "test")
-
-      self.shutdown()
-      self.server.wait()
-      self.done()
-
-
-test_list = [PersistTest, DropTest, BigDirTest, BigDir2Test, DeepTest,
-      ComplexTest, Complex2Test, Persist2Test, FreeTest]
-
+test_list = [PersistTest, BigDirTest, DeepTest]
+# test_list = []

@@ -190,5 +190,7 @@ class NameTest(MfsTest):
       self.server.wait()
       self.done()
 
-test_list = [Dir1Test, Dir2Test, BadDirTest, BadDir2Test, UnlinkTest, Unlink2Test, EmptyTest, NameTest]
-# test_list = []
+test_list = [Dir1Test, Dir2Test,
+      BadDirTest, BadDir2Test, UnlinkTest, Unlink2Test, EmptyTest,
+      NameTest]
+

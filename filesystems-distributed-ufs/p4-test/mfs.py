@@ -3,6 +3,7 @@ import os, time, random
 
 import toolspath
 from testing.test import Test, Failure
+import subprocess
 
 # root inode number
 ROOT = 0
@@ -10,11 +11,11 @@ ROOT = 0
 MFS_DIRECTORY = 0
 MFS_REGULAR_FILE = 1
 MFS_BLOCK_SIZE = 4096
-
-MAX_INODES = 4096
+MAX_INODES = 32 
 
 MAX_FILE_BLOCKS = 30
-MAX_FILES_PER_DIR = (MAX_FILE_BLOCKS * MFS_BLOCK_SIZE / 32) - 2
+MAX_FILES_PER_DIR = 126
+# MAX_FILES_PER_DIR = (MAX_FILE_BLOCKS * MFS_BLOCK_SIZE / 32) - 2 = 4096 
 
 MAX_NAME_LEN = 27
 
@@ -145,3 +146,21 @@ class MfsTest(Test):
       self.terminate()
       return result
 
+   def create_image(self):
+      pwd = subprocess.check_output("pwd", shell=True);
+      command = str(pwd).replace('\n', '') + "/mkfs -f test.img"
+      os.system(command)
+      image = str(pwd).replace('\n', '') + "/test.img"
+      return image
+
+
+   
+   def create_image_max(self, num_data_blocks, num_inodes):
+      pwd = subprocess.check_output("pwd", shell=True);
+      command = str(pwd).replace('\n', '') + "/mkfs -f test.img -d %i -i %i" %(num_data_blocks, num_inodes)
+      os.system(command)
+      image = str(pwd).replace('\n', '') + "/test.img"
+      return image 
+
+      
+      

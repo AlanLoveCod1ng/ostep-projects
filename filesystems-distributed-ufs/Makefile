@@ -12,7 +12,6 @@ all: ${PROGS}
 ${PROGS}:
 	gcc -fPIC -g -c -Wall libmfs.c
 	gcc -shared -Wl,-soname,libmfs.so -o libmfs.so libmfs.o udp.c -lc
-	export LD_LIBRARY_PATH=.
 	gcc -Wall  -g -c client.c
 	gcc client.o  -g -o client udp.c -L. -lmfs
 	gcc -Wall  -g -c server.c
@@ -20,5 +19,7 @@ ${PROGS}:
 	gcc -Wall -Werror -g -c clientmfs.c
 	gcc clientmfs.o  -g -o clientmfs udp.c -L. -lmfs
 	gcc ${CFLAGS} -o mkfs mkfs.c
+	./mkfs -f test.img -d 32 -i 128
+	export LD_LIBRARY_PATH=.
 clean:
 	rm -f ${PROGS} ${OBJS} libmfs.so mkfs

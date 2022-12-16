@@ -1,5 +1,5 @@
 from mfs import *
-
+import subprocess
 import toolspath
 from testing.test import Failure
 
@@ -9,8 +9,9 @@ class WriteTest(MfsTest):
    timeout = 10
 
    def run(self):
+      image = self.create_image()
       self.loadlib()
-      self.start_server()
+      self.start_server(image)
 
       self.mfs_init("localhost", self.port)
       self.creat(0, MFS_REGULAR_FILE, "test")
@@ -36,10 +37,12 @@ class StatTest(MfsTest):
    name = "stat"
    description = "stat a regular file"
    timeout = 10
-
+   
    def run(self):
+      
+      image = self.create_image()
       self.loadlib()
-      self.start_server()
+      self.start_server(image)
 
       self.mfs_init("localhost", self.port)
       self.creat(ROOT, MFS_REGULAR_FILE, "test")
@@ -75,8 +78,9 @@ class OverwriteTest(MfsTest):
    timeout = 10
 
    def run(self):
+      image = self.create_image()
       self.loadlib()
-      self.start_server()
+      self.start_server(image)
 
       self.mfs_init("localhost", self.port)
       self.creat(0, MFS_REGULAR_FILE, "test")
@@ -101,21 +105,22 @@ class MaxFileTest(MfsTest):
    timeout = 10
 
    def run(self):
+      image = self.create_image_max(32, 128)
       self.loadlib()
-      self.start_server()
+      self.start_server(image)
 
       self.mfs_init("localhost", self.port)
       self.creat(0, MFS_REGULAR_FILE, "test")
       inum = self.lookup(0, "test")
 
-      # buf = [gen_block(i) for i in range(MAX_FILE_BLOCKS)]
-      buf = gen_block(1)
+      buf = [gen_block(i) for i in range(MAX_FILE_BLOCKS)]
+      # buf = gen_block(1)
 
-      # for i in range(MAX_FILE_BLOCKS):
-      self.write(inum, buf, 0, MFS_BLOCK_SIZE )
+      for i in range(MAX_FILE_BLOCKS):
+         self.write(inum, buf[i], i * MFS_BLOCK_SIZE, MFS_BLOCK_SIZE)
 
-      # for i in range(MAX_FILE_BLOCKS):
-      self.read_and_check(inum, 0, buf, MFS_BLOCK_SIZE)
+      for i in range(MAX_FILE_BLOCKS):
+         self.read_and_check(inum, i * MFS_BLOCK_SIZE, buf[i], MFS_BLOCK_SIZE)
 
       self.shutdown()
 
@@ -129,26 +134,26 @@ class MaxFile2Test(MfsTest):
    timeout = 10
 
    def run(self):
+      image = self.create_image()
       self.loadlib()
-      self.start_server()
+      self.start_server(image)
       self.mfs_init("localhost", self.port)
       self.creat(0, MFS_REGULAR_FILE, "test")
       inum = self.lookup(0, "test")
 
-      # buf = [gen_block(i) for i in range(MAX_FILE_BLOCKS + 1)]
-      buf = gen_block(1)
-
-      # for i in range(MAX_FILE_BLOCKS):
-      self.write(inum, buf, 0, MFS_BLOCK_SIZE)
-      # i = MAX_FILE_BLOCKS
-      r = self.libmfs.MFS_Write(inum, buf, MAX_FILE_BLOCKS * MFS_BLOCK_SIZE, MFS_BLOCK_SIZE)
+      buf = [gen_block(i) for i in range(MAX_FILE_BLOCKS + 1)]
+      print len(buf)
+      for i in range(MAX_FILE_BLOCKS):
+         # print "write = " + str(i)
+         self.write(inum, buf[i], i*MFS_BLOCK_SIZE, MFS_BLOCK_SIZE)
+      print "write more than need"
+      r = self.libmfs.MFS_Write(inum, byref(buf[MAX_FILE_BLOCKS]), MAX_FILE_BLOCKS * MFS_BLOCK_SIZE, MFS_BLOCK_SIZE)
       if r != -1:
          raise Failure("MFS_Write should fail on inalid block number")
 
-      # for i in range(MAX_FILE_BLOCKS):
-      self.read_and_check(inum, 0, buf, MFS_BLOCK_SIZE)
-      # i = MAX_FILE_BLOCKS
-      r = self.libmfs.MFS_Read(inum, buf, MAX_FILE_BLOCKS * MFS_BLOCK_SIZE, MFS_BLOCK_SIZE)
+      for i in range(MAX_FILE_BLOCKS):
+         self.read_and_check(inum, i*MFS_BLOCK_SIZE, buf[i], MFS_BLOCK_SIZE)
+      r = self.libmfs.MFS_Read(inum, byref(buf[MAX_FILE_BLOCKS]), MAX_FILE_BLOCKS * MFS_BLOCK_SIZE, MFS_BLOCK_SIZE)
       if r != -1:
          raise Failure("MFS_Read should fail on inalid block number")
 
@@ -157,74 +162,5 @@ class MaxFile2Test(MfsTest):
       self.server.wait()
       self.done()
 
-class SparseTest(MfsTest):
-   name = "sparse"
-   description = "write first and last block"
-   timeout = 10
-
-   def run(self):
-      self.loadlib()
-      self.start_server()
-
-      self.mfs_init("localhost", self.port)
-      self.creat(0, MFS_REGULAR_FILE, "test")
-      inum = self.lookup(ROOT, "test")
-
-      buf = gen_block(1)
-      self.write(inum, buf, 0, MFS_BLOCK_SIZE)
-      self.read_and_check(inum, 0, buf, MFS_BLOCK_SIZE)
-
-      buf = gen_block(2)
-      self.write(inum, buf, MAX_FILE_BLOCKS - 1, MFS_BLOCK_SIZE)
-      self.read_and_check(inum, MAX_FILE_BLOCKS - 1, buf, MFS_BLOCK_SIZE)
-
-      buf = gen_block(3)
-      self.write(inum, buf, 0, MFS_BLOCK_SIZE)
-      self.read_and_check(inum, 0, buf, MFS_BLOCK_SIZE)
-      buf = gen_block(2)
-      self.read_and_check(inum, MAX_FILE_BLOCKS - 1, buf, MFS_BLOCK_SIZE)
-
-      buf = gen_block(4)
-      self.write(inum, buf, MAX_FILE_BLOCKS - 1, MFS_BLOCK_SIZE)
-      self.read_and_check(inum, MAX_FILE_BLOCKS - 1, buf, MFS_BLOCK_SIZE)
-      buf = gen_block(3)
-      self.read_and_check(inum, 0, buf, MFS_BLOCK_SIZE)
-
-      self.shutdown()
-      self.server.wait()
-      self.done()
-
-class Stat2Test(MfsTest):
-   name = "stat2"
-   description = "stat a sparse file"
-   timeout = 10
-
-   def run(self):
-      self.loadlib()
-      self.start_server()
-
-      self.mfs_init("localhost", self.port)
-      self.creat(0, MFS_REGULAR_FILE, "test")
-      inum = self.lookup(ROOT, "test")
-
-      buf = gen_block(1)
-      self.write(inum, buf, 0, MFS_BLOCK_SIZE)
-      buf = gen_block(2)
-      self.write(inum, buf, MAX_FILE_BLOCKS - 1, MFS_BLOCK_SIZE)
-      buf = gen_block(3)
-      self.write(inum, buf, 0, MFS_BLOCK_SIZE)
-      buf = gen_block(4)
-      self.write(inum, buf, MAX_FILE_BLOCKS - 1, MFS_BLOCK_SIZE)
-
-      st = self.stat(inum)
-      if st.type != MFS_REGULAR_FILE:
-         raise Failure("Stat gave wrong type")
-      if st.size != MAX_FILE_BLOCKS * MFS_BLOCK_SIZE:
-         raise Failure("Stat gave wrong size")
-
-      self.shutdown()
-      self.server.wait()
-      self.done()
-
-test_list = [WriteTest, StatTest, OverwriteTest, MaxFileTest, MaxFile2Test, SparseTest, Stat2Test]
+test_list = [WriteTest, StatTest, OverwriteTest, MaxFileTest, MaxFile2Test]
 
